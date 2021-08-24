@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use  App\Models\Category;
 use  App\Models\Subcategory;
+use  App\Models\SubsubCategory;
 class CategoryController extends Controller
 {
     public function index(){
@@ -145,4 +146,77 @@ class CategoryController extends Controller
             ->route('sub_Category')
             ->with($notification);
     }
+
+    /* sub sub category metyhod bellow  */
+
+        public function subsub_index(){
+            $category =Category::orderBy('category_name_en','ASC')->get();
+            $subsubcategories= SubsubCategory::latest()->get();
+            return view('admin.subsubcategory.subsubindex',compact('category','subsubcategories'));
+        }
+            /* bringing subcategory with ajx */
+        public function get_subcat($ca_id){
+            $subcat= Subcategory::where('category_id',$ca_id)->orderBy('subcategory_name_en','ASC')->get();
+            return json_encode($subcat);
+        }
+
+        /* store */
+        public function sub_sub_store(Request $request){
+        Subsubcategory::insert([
+            'category_id'  => $request->category_id,
+            'subcategory_id' =>$request->subcategory_id,
+            'subsubcategory_name_en' =>$request->subsubcategory_name_en,
+            'subsubcategory_name_bn' =>$request->subsubcategory_name_bn,
+            'subsubcategory_slug_en'=>strtolower(str_replace('','-',$request->subsubcategory_name_en)),
+            'subsubcategory_slug_bn'=>str_replace('','-',$request->subsubcategory_name_bn),
+            'created_at'=> Carbon::now(),
+        
+        ]);
+        $notification = [
+            'message' => 'Successfully Sub Subcategory Stored',
+            'alert-type' => 'success',
+        ];
+        return Redirect()
+            ->route('sub_sub_Category')
+            ->with($notification);
+        }
+
+        public function sub_sub_edit($c_id){
+            $subsubcat=Subsubcategory::findOrFail($c_id);
+            return view('admin.subsubcategory.edit',compact('subsubcat'));
+            }
+
+        /* subsub update */
+        public function update_subsub_cat(Request $request){
+            $subsubcat = $request->id;
+
+            Subsubcategory::findOrFail($subsubcat)->update([
+            'subsubcategory_name_en' =>$request->subsubcategory_name_en,
+            'subsubcategory_name_bn' =>$request->subsubcategory_name_bn,
+            'subsubcategory_slug_en'=>strtolower(str_replace('', '-', $request->subsubcategory_name_en)),
+            'subsubcategory_slug_bn'=>str_replace('', '-', $request->subsubcategory_name_bn),
+            'created_at'=> Carbon::now(),
+        ]);
+            $notification = [
+            'message' => 'Successfully Sub Subcategory Stored',
+            'alert-type' => 'success',
+        ];
+            return Redirect()
+            ->route('sub_sub_Category')
+            ->with($notification);
+        }
+
+        public function delet_subsub($ca_id){
+            Subsubcategory::findOrFail($ca_id)->delete();
+            $notification = [
+                'message' => 'Successfully Subsubcategory Deleted',
+                'alert-type' => 'success',
+            ];
+            return Redirect()
+                ->route('sub_sub_Category')
+                ->with($notification);
+        }
+
+
+
 }

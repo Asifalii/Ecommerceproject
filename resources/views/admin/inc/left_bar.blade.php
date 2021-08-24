@@ -35,9 +35,24 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
 
-     <ul class="sl-menu-sub nav flex-column ">
+        <ul class="sl-menu-sub nav flex-column ">
             <li class="nav-item"><a href="{{ route('Category') }}" class="nav-link @yield('sub_categori')">Add Categories</a></li>
             <li class="nav-item"><a href="{{ route('sub_Category') }}" class="nav-link @yield('sub_categori_1')">Sub-Categories</a></li>
+            <li class="nav-item"><a href="{{ route('sub_sub_Category') }}" class="nav-link @yield('sub_sub_categori')">Sub-Sub-Categories</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link  @yield('products')">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-pie-outline tx-20"></i>
+                <span class="menu-item-label">products</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+
+        <ul class="sl-menu-sub nav flex-column ">
+            <li class="nav-item"><a href="{{ route('create_product') }}" class="nav-link @yield('product')">Add-Product</a></li>
+            <li class="nav-item"><a href="" class="nav-link @yield('prod')">Product</a></li>
+        </ul>
         </ul>
         
     </div><!-- sl-sideleft-menu -->

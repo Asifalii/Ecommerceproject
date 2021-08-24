@@ -38,12 +38,15 @@
     <link href="{{asset('fn')}}/lib/rickshaw/rickshaw.min.css" rel="stylesheet">
     <link href="{{asset('fn')}}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
     <link href="{{asset('fn')}}/lib/select2/css/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css" integrity="sha512-3uVpgbpX33N/XhyD3eWlOgFVAraGn3AfpxywfOTEQeBDByJ/J7HkLvl4mJE1fvArGh4ye1EiPfSBnJo2fgfZmg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{{asset('fn')}}/lib/summernote/summernote-bs4.css" rel="stylesheet">
     <link href="{{asset('fn')}}/lib/spectrum/spectrum.css" rel="stylesheet">
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('fn')}}/css/starlight.css">
     
     <!-- toster link -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    
     {{-- sweet alert css --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
@@ -280,6 +283,7 @@
     <script src="{{asset('fn')}}/lib/popper.js/popper.js"></script>
     <script src="{{asset('fn')}}/lib/bootstrap/bootstrap.js"></script>
     <script src="{{asset('fn')}}/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.min.js" integrity="sha512-SXJkO2QQrKk2amHckjns/RYjUIBCI34edl9yh0dzgw3scKu0q4Bo/dUr+sGHMUha0j9Q1Y7fJXJMaBi4xtyfDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{asset('fn')}}/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
     {{-- data table link add here ander below 3 of them  --}}
     <script src="{{asset('fn')}}/lib/datatables/jquery.dataTables.js"></script>
@@ -373,10 +377,40 @@
     <script src="{{asset('fn')}}/lib/Flot/jquery.flot.pie.js"></script>
     <script src="{{asset('fn')}}/lib/Flot/jquery.flot.resize.js"></script>
     <script src="{{asset('fn')}}/lib/flot-spline/jquery.flot.spline.js"></script>
+    <script src="{{asset('fn')}}/lib/summernote/summernote-bs4.min.js"></script>
+    <script>
+        $(function(){
+          'use strict';
 
+          // Summernote editor
+          $('#summernote').summernote({
+            height: 150,
+            tooltip: false
+          })
+          // Summernote2 editor
+          $('#summernote2').summernote({
+            height: 150,
+            tooltip: false
+          })
+          // Summernote3 editor
+          $('#summernote3').summernote({
+            height: 150,
+            tooltip: false
+          })
+          // Summernote4 editor
+          $('#summernote4').summernote({
+            height: 150,
+            tooltip: false
+          })
+        });
+      </script>
     <script src="{{asset('fn')}}/js/starlight.js"></script>
     <script src="{{asset('fn')}}/js/ResizeSensor.js"></script>
     <script src="{{asset('fn')}}/js/dashboard.js"></script>
+    <script src="{{ asset('fn') }}/lib/highlightjs/highlight.pack.js"></script>
+
+    
+
     <!-- toster js link -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     

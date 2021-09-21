@@ -7,14 +7,15 @@
      <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
           <a class="breadcrumb-item" href="index.html">SHopMama</a>
-          <span class="breadcrumb-item active">Add Product</span>
+          <span class="breadcrumb-item active">Update Product</span>
         </nav>
 
         <div class="sl-pagebody">
             <div class="card pd-20 pd-sm-40">
-              <h6 class="card-body-title">Add product</h6>
-              <form action="{{ route('store_product') }}" method="POST" enctype="multipart/form-data">
+              <h6 class="card-body-title">Update product</h6>
+              <form action="{{route('product_update_data')}}" method="POST">
                 @csrf
+                <input type="hidden" name="product_id" value="{{ $products->id }}">
             <div class="row row-sm">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -22,7 +23,7 @@
                             <select class="form-control select2-show-search" data-placeholder="Select One" name="brand_id">
                               <option label="Choose one"></option>
                               @foreach ($brands as $brand)
-                              <option value="{{ $brand->id }}">{{ ucwords($brand->brand_name_en) }}</option>
+                              <option value="{{ $brand->id }}" {{  $brand->id==$products->brand_id ? 'selected' :''}}>{{ ucwords($brand->brand_name_en) }}</option>
                               @endforeach
                             </select>
                             @error('brand_id')
@@ -38,7 +39,7 @@
                             <select class="form-control select2-show-search" data-placeholder="Select One" name="category_id">
                               <option label="Choose one"></option>
                               @foreach ($category as $cat)
-                              <option value="{{ $cat->id }}">{{ ucwords($cat->category_name_en) }}</option>
+                              <option value="{{ $cat->id }}"{{ $cat->id==$products->category_id ? 'selected' :'' }}>{{ ucwords($cat->category_name_en) }}</option>
                               @endforeach
                             </select>
                             @error('category_id')
@@ -78,7 +79,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Name English: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_name_en" value="{{ old('product_name_en') }}" placeholder="Enter Product Name English">
+                        <input class="form-control" type="text" name="product_name_en" value="{{ $products->product_name_en }}" placeholder="Enter Product Name English">
                         @error('product_name_en')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -88,7 +89,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Name Bangla: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_name_bn" value="{{ old('product_name_bn') }}" placeholder="Product Name Bangla">
+                        <input class="form-control" type="text" name="product_name_bn" value="{{ $products->product_name_bn }}" placeholder="Product Name Bangla">
                         @error('product_name_bn')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -98,7 +99,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Code: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_code" value="{{ old('product_code') }}" placeholder="Enter Product Code">
+                        <input class="form-control" type="text" name="product_code" value="{{ $products->product_code }}" placeholder="Enter Product Code">
                         @error('product_code')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -108,7 +109,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Quantity: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_qty" value="{{ old('product_qty') }}" placeholder="Enter Product Quantity">
+                        <input class="form-control" type="text" name="product_qty" value="{{ $products->product_qty }}" placeholder="Enter Product Quantity">
                         @error('product_qty')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -118,7 +119,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Tags English: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_tags_en" value="{{ old('product_tags_en') }}" placeholder="Product Tags English" data-role="tagsinput">
+                        <input class="form-control" type="text" name="product_tags_en" value="{{ $products->product_tags_en }}" placeholder="Product Tags English" data-role="tagsinput">
                         @error('product_tags_en')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -128,7 +129,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Tags Bangla: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_tags_bn" value="{{ old('product_tags_bn') }}" placeholder="product tags bangla" data-role="tagsinput">
+                        <input class="form-control" type="text" name="product_tags_bn" value="{{ $products->product_tags_bn }}" placeholder="product tags bangla" data-role="tagsinput">
                         @error('product_tags_bn')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -138,7 +139,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Size English: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_size_en" value="{{ old('product_size_en') }}" placeholder="Product Size English" data-role="tagsinput">
+                        <input class="form-control" type="text" name="product_size_en" value="{{ $products->product_size_en }}" placeholder="Product Size English" data-role="tagsinput">
                         @error('product_size_en')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -148,7 +149,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Size Bangla: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_size_bn" value="{{ old('product_size_bn') }}" placeholder="Product Size Bangla" data-role="tagsinput">
+                        <input class="form-control" type="text" name="product_size_bn" value="{{ $products->product_size_bn }}" placeholder="Product Size Bangla" data-role="tagsinput">
                         @error('product_size_bn')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -158,7 +159,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Color English: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_color_en" value="{{ old('product_color_en') }}" placeholder="Product Color Rnglish" data-role="tagsinput">
+                        <input class="form-control" type="text" name="product_color_en" value="{{ $products->product_color_en }}" placeholder="Product Color Rnglish" data-role="tagsinput">
                         @error('product_color_en')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -168,7 +169,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Product Color Bangla: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="product_color_bn" value="{{ old('product_color_bn') }}" placeholder="Enter Product Color Bangla" data-role="tagsinput">
+                        <input class="form-control" type="text" name="product_color_bn" value="{{ $products->product_color_bn }}" placeholder="Enter Product Color Bangla" data-role="tagsinput">
                         @error('product_color_bn')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
@@ -178,31 +179,169 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Selling Price: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="selling_price" value="{{ old('selling_price') }}" placeholder="Selling Price">
+                        <input class="form-control" type="text" name="selling_price" value="{{ $products->selling_price }}" placeholder="Selling Price">
                         @error('selling_price')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
                       </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="col-md-12">
                     <div class="form-group">
                         <label class="form-control-label">Discount Price: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="discount_price" value="{{ old('discount_price') }}" placeholder="Discount Price">
+                        <input class="form-control" type="text" name="discount_price" value="{{ $products->discount_price }}" placeholder="Discount Price">
                         @error('discount_price')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
                       </div>
                   </div>
 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Short Description English: <span class="tx-danger">*</span></label>
+                        <textarea name="short_descp_en" id="summernote">{{ $products->short_descp_en }}</textarea>
+                        @error('short_descp_en')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                      </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Short Description Bangla: <span class="tx-danger">*</span></label>
+                        <textarea name="short_descp_bn" id="summernote2">{{ $products->short_descp_bn }}</textarea>
+                        @error('short_descp_bn')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                      </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Long Description English: <span class="tx-danger">*</span></label>
+                        <textarea name="long_descp_en" id="summernote3">{{ $products->long_descp_en }}</textarea>
+                        @error('long_descp_en')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                      </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Long Description Bangla: <span class="tx-danger">*</span></label>
+                        <textarea name="long_descp_bn" id="summernote4">{{ $products->long_descp_bn }}</textarea>
+                        @error('long_descp_bn')
+                        <span class="text-danger">{{ $message }}</span>
+                      @enderror
+                      </div>
+                  </div>
+
                   <div class="col-md-4">
+                  <label class="ckbox">
+                    <input type="checkbox" name="hot_deals" value="1" {{ $products->hot_deals==1 ? 'checked' :'' }}><span>Hot Deals</span>
+                  </label>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="ckbox">
+                      <input type="checkbox" name="featured" value="1" {{ $products->featured==1 ? 'checked' :'' }}><span>Featured</span>
+                    </label>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="ckbox">
+                          <input type="checkbox" name="special_offer" value="1" {{ $products->special_offer==1 ? 'checked' :'' }}><span>special_offer</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="ckbox">
+                          <input type="checkbox" name="special_deals" value="1" {{ $products->special_deals==1 ? 'checked' :'' }}><span>special_deals</span>
+                        </label>
+                    </div>               
+            </div>
+            <div class="form-layout-footer mt-3">
+              <button class="btn btn-info mg-r-5" type="submit" style="cursor: pointer;">Add Products</button>
+            </div><!-- form-layout-footer -->
+        </form>
+
+       
+        <form action="{{ route('update-product-thumbnail') }}" method="POST" enctype="multipart/form-data">
+      
+          @csrf  
+        <input type="hidden" name="produc_id" value="{{ $products->id }}">                                                   
+        <input type="hidden" name="old_img" value="{{ $products->product_thambnail }}"> 
+        <br>
+        <h1>Update main thumbnail</h1>                                                  
+        <div class="row row-sm" style="margin-top:30px;">
+            <div class="col-md-3">
+            <div class="card">
+              <img class="card-img-top" src="{{ asset($products->product_thambnail) }}" alt="Card image cap">
+              <div class="card-body" >
+                <h5 class="card-title">
+                </h5>              
+                <div class="form-group">
+                  <label class="form-control-label">
+                    <span>Chnage Image</span>
+                  </label>
+                  <div class="input-group mb-3">                       
+                    <input type="file" class="form-control" name="product_thambnail" onchange="mainThambUrl(this)">
+                  </div>
+                  <img src="" id="mainThmb">
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </div>
+        <div class="form-layout-footer mt-3">
+          <button class="btn btn-info mg-r-5" type="submit" style="cursor: pointer;">Update new</button>
+        </div><!-- form-layout-footer -->
+      </form>
+
+      <form action="{{ route('multi_image_update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <br>
+        <h1>Update Multipale Producy Image</h1>  
+        <div class="row row-sm" style="margin-top:30px;">
+            @foreach ($mul as $item)
+            <div class="col-md-3">
+            <div class="card">
+              <img class="card-img-top" src="{{ asset($item->photo_name) }}" alt="Card image cap">
+              <div class="card-body" >
+                <h5 class="card-title">
+                  <a href="{{ url('admin/multiimage_delete/'.$item->id) }}"class="btn btn-danger btn-sm" id="delete" title="delet data"><i class="fa fa-trash"></i></a>
+                </h5>              
+                <div class="form-group">
+                  <label class="form-control-label">
+                    <span>Chnage Image</span>
+                  </label>
+                  <div class="input-group mb-3">                       
+                    <input type="file" class="form-control" name="multiImg[{{ $item->id }}]">
+                  </div>
+                </div>
+              </div>
+           
+            </div>
+          </div>
+          @endforeach
+        </div>
+        <div class="form-layout-footer mt-3">
+          <button class="btn btn-info mg-r-5" type="submit" style="cursor: pointer;">Update new</button>
+        </div><!-- form-layout-footer -->
+      </form>
+       </div><!-- row -->
+
+
+            {{--  <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-control-label">Main Thambnail: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="file" name="product_thambnail" value=" {{ old('product_thambnail') }}" onchange="mainThambUrl(this)">
+                        <input class="form-control" type="file" name="product_thambnail" value="" onchange="mainThambUrl(this)">
                         @error('product_thambnail')
                         <span class="text-danger">{{ $message }}</span>
                       @enderror
                       <img src="" id="mainThmb">
+                      
                       </div>
                   </div>
 
@@ -216,78 +355,7 @@
                       </div>
                       <div class="row" id="preview_img" >
                       </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">Short Description English: <span class="tx-danger">*</span></label>
-                        <textarea name="short_descp_en" id="summernote"></textarea>
-                        @error('short_descp_en')
-                        <span class="text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">Short Description Bangla: <span class="tx-danger">*</span></label>
-                        <textarea name="short_descp_bn" id="summernote2"></textarea>
-                        @error('short_descp_bn')
-                        <span class="text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">Long Description English: <span class="tx-danger">*</span></label>
-                        <textarea name="long_descp_en" id="summernote3"></textarea>
-                        @error('long_descp_en')
-                        <span class="text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">Long Description Bangla: <span class="tx-danger">*</span></label>
-                        <textarea name="long_descp_bn" id="summernote4"></textarea>
-                        @error('long_descp_bn')
-                        <span class="text-danger">{{ $message }}</span>
-                      @enderror
-                      </div>
-                  </div>
-
-                  <div class="col-md-4">
-                  <label class="ckbox">
-                    <input type="checkbox" name="hot_deals" value="1"><span>Hot Deals</span>
-                  </label>
-                  </div>
-
-                  <div class="col-md-4">
-                    <label class="ckbox">
-                      <input type="checkbox" name="featured" value="1"><span>Featured</span>
-                    </label>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="ckbox">
-                          <input type="checkbox" name="special_offer" value="1"><span>special_offer</span>
-                        </label>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="ckbox">
-                          <input type="checkbox" name="special_deals" value="1"><span>special_deals</span>
-                        </label>
-                    </div>
-
-                  <div class="form-layout-footer mt-3">
-                  <button class="btn btn-info mg-r-5" type="submit" style="cursor: pointer;">Add Products</button>
-                </div><!-- form-layout-footer -->
-            </form>
-            </div>
-            </div><!-- row -->
+                  </div> --}}
 
 
     </div>

@@ -131,4 +131,6 @@
             </div><!-- /.row -->
         </div><!-- /.sigin-in-->
 
-        @endsection
+    </div>
+</div>
+ @endsection

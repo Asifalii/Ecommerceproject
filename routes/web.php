@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Frontend\Indexcontroller;
 
@@ -65,8 +67,24 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
      Route::get('product/',[ProductController::class,'add_product'])->name('create_product');
      Route::post('Product/store',[ProductController::class,'store_product'])->name('store_product');
      Route::get('subsubcategory/ajax/{catt_id}',[ProductController::class,'get_subsubcat']);
-     
+     Route::get('product/view',[ProductController::class,'products'])->name('products');
+     Route::get('edit-product/{p_id}',[ProductController::class,'edit']);
+     Route::get('delet-product/{d_id}',[ProductController::class,'delet']);
 
+     Route::post('product/data/update',[ProductController::class,'product_update_data'])->name('product_update_data');
+     Route::post('product/multipale-image/update',[ProductController::class,'multi_image_update'])->name('multi_image_update');
+     Route::post('product/thumbnail-image/update',[ProductController::class,'update_product_thumbnail'])->name('update-product-thumbnail');
+     Route::get('multiimage_delete/{pro_id}',[ProductController::class,'multi_img_delet']);
+     Route::get('product_active/{id}',[ProductController::class,'active']);
+     Route::get('product_inactive/{id}',[ProductController::class,'inactive']);
+     /* slider route */
+     Route::get('sliders',[SliderController::class,'index'])->name('sliders');
+     Route::post('Slider/store/',[SliderController::class,'slider_store'])->name('slider-store');
+     Route::get('slider_edit/{s_id}',[SliderController::class,'edit']);
+     Route::post('slider_update',[SliderController::class,'update'])->name('slider_update');
+     Route::get('slider_delet/{id}',[SliderController::class,'delet']);
+     Route::get('slider_active/{id}',[SliderController::class,'active']);
+     Route::get('slider_inactive/{id}',[SliderController::class,'inactive']);
 });
 
 
@@ -81,3 +99,8 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::post('change/password',[UserController::class,'change_password_method'])->name('change-password');
  
 }); 
+/* ===================================front end route==============================*/
+
+    Route::get('language/bangla',[LanguageController::class,'bangla'])->name('bangla.language');
+    Route::get('language/english',[LanguageController::class,'english'])->name('english.language');
+    Route::get('single/product/{id}/{slug}',[IndexController::class,'singleproduct']);

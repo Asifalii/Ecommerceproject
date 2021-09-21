@@ -31,8 +31,8 @@ class CreateProductsTable extends Migration
             $table->string('product_size_bn')->nullable();
             $table->string('product_color_en');
             $table->string('product_color_bn');
-            $table->string('selling_price');
-            $table->string('discount_price')->nullable();
+            $table->integer('selling_price');
+            $table->integer('discount_price')->nullable();
             $table->text('short_descp_en');
             $table->text('short_descp_bn');
             $table->text('long_descp_en');

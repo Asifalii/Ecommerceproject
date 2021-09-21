@@ -109,7 +109,6 @@ class BrandController extends Controller
        $img =$brand->brand_image;
        unlink($img);
        Brand::findOrFail($brand_id)->delete();
-
        $notification = [
         'message' => 'Successfully brand deleted ',
         'alert-type' => 'success',

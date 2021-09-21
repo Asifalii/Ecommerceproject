@@ -27,6 +27,13 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
 
+        <a href="{{ route('sliders') }}" class="sl-menu-link  @yield('sliders')" >
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
+                <span class="menu-item-label">Sliders</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+
         <a href="#" class="sl-menu-link  @yield('categories')">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-pie-outline tx-20"></i>
@@ -51,7 +58,7 @@
 
         <ul class="sl-menu-sub nav flex-column ">
             <li class="nav-item"><a href="{{ route('create_product') }}" class="nav-link @yield('product')">Add-Product</a></li>
-            <li class="nav-item"><a href="" class="nav-link @yield('prod')">Product</a></li>
+            <li class="nav-item"><a href="{{ route('products') }}" class="nav-link @yield('product_view')">Products</a></li>
         </ul>
         </ul>
         

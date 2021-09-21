@@ -31,7 +31,7 @@
 
 
     <!-- Icons/Glyphs -->
-    <link rel="stylesheet" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" href="{{asset('f')}}/assets/css/font-awesome.css">
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>

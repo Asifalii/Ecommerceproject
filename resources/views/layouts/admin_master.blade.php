@@ -32,18 +32,18 @@
     <title>E-com</title>
 
     <!-- vendor css -->
-    <link href="{{asset('fn')}}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="{{asset('fn')}}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
-    <link href="{{asset('fn')}}/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
-    <link href="{{asset('fn')}}/lib/rickshaw/rickshaw.min.css" rel="stylesheet">
-    <link href="{{asset('fn')}}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
-    <link href="{{asset('fn')}}/lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/rickshaw/rickshaw.min.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/select2/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.css" integrity="sha512-3uVpgbpX33N/XhyD3eWlOgFVAraGn3AfpxywfOTEQeBDByJ/J7HkLvl4mJE1fvArGh4ye1EiPfSBnJo2fgfZmg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="{{asset('fn')}}/lib/summernote/summernote-bs4.css" rel="stylesheet">
-    <link href="{{asset('fn')}}/lib/spectrum/spectrum.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/summernote/summernote-bs4.css" rel="stylesheet">
+    <link href="{{asset('b')}}/lib/spectrum/spectrum.css" rel="stylesheet">
     <!-- Starlight CSS -->
-    <link rel="stylesheet" href="{{asset('fn')}}/css/starlight.css">
+    <link rel="stylesheet" href="{{asset('b')}}/css/starlight.css">
     
     <!-- toster link -->
     
@@ -279,17 +279,17 @@
     @yield('admin_content')
     <!-- ########## END: MAIN PANEL ########## -->
 
-    <script src="{{asset('fn')}}/lib/jquery/jquery.js"></script>
-    <script src="{{asset('fn')}}/lib/popper.js/popper.js"></script>
-    <script src="{{asset('fn')}}/lib/bootstrap/bootstrap.js"></script>
-    <script src="{{asset('fn')}}/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="{{asset('b')}}/lib/jquery/jquery.js"></script>
+    <script src="{{asset('b')}}/lib/popper.js/popper.js"></script>
+    <script src="{{asset('b')}}/lib/bootstrap/bootstrap.js"></script>
+    <script src="{{asset('b')}}/lib/jquery-ui/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.min.js" integrity="sha512-SXJkO2QQrKk2amHckjns/RYjUIBCI34edl9yh0dzgw3scKu0q4Bo/dUr+sGHMUha0j9Q1Y7fJXJMaBi4xtyfDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{{asset('fn')}}/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+    <script src="{{asset('b')}}/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
     {{-- data table link add here ander below 3 of them  --}}
-    <script src="{{asset('fn')}}/lib/datatables/jquery.dataTables.js"></script>
-    <script src="{{asset('fn')}}/lib/datatables-responsive/dataTables.responsive.js"></script>
-    <script src="{{asset('fn')}}/lib/select2/js/select2.min.js"></script>
-    <script src="{{asset('fn')}}/lib/spectrum/spectrum.js"></script>
+    <script src="{{asset('b')}}/lib/datatables/jquery.dataTables.js"></script>
+    <script src="{{asset('b')}}/lib/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="{{asset('b')}}/lib/select2/js/select2.min.js"></script>
+    <script src="{{asset('b')}}/lib/spectrum/spectrum.js"></script>
     <script>
         $(function(){
   
@@ -369,15 +369,15 @@
         });
       </script>
 {{-- data table end --}}  
-    <script src="{{asset('fn')}}/lib/jquery.sparkline.bower/jquery.sparkline.min.js"></script>
-    <script src="{{asset('fn')}}/lib/d3/d3.js"></script>
-    <script src="{{asset('fn')}}/lib/rickshaw/rickshaw.min.js"></script>
-    <script src="{{asset('fn')}}/lib/chart.js/Chart.js"></script>
-    <script src="{{asset('fn')}}/lib/Flot/jquery.flot.js"></script>
-    <script src="{{asset('fn')}}/lib/Flot/jquery.flot.pie.js"></script>
-    <script src="{{asset('fn')}}/lib/Flot/jquery.flot.resize.js"></script>
-    <script src="{{asset('fn')}}/lib/flot-spline/jquery.flot.spline.js"></script>
-    <script src="{{asset('fn')}}/lib/summernote/summernote-bs4.min.js"></script>
+    <script src="{{asset('b')}}/lib/jquery.sparkline.bower/jquery.sparkline.min.js"></script>
+    <script src="{{asset('b')}}/lib/d3/d3.js"></script>
+    <script src="{{asset('b')}}/lib/rickshaw/rickshaw.min.js"></script>
+    <script src="{{asset('b')}}/lib/chart.js/Chart.js"></script>
+    <script src="{{asset('b')}}/lib/Flot/jquery.flot.js"></script>
+    <script src="{{asset('b')}}/lib/Flot/jquery.flot.pie.js"></script>
+    <script src="{{asset('b')}}/lib/Flot/jquery.flot.resize.js"></script>
+    <script src="{{asset('b')}}/lib/flot-spline/jquery.flot.spline.js"></script>
+    <script src="{{asset('b')}}/lib/summernote/summernote-bs4.min.js"></script>
     <script>
         $(function(){
           'use strict';
@@ -404,10 +404,10 @@
           })
         });
       </script>
-    <script src="{{asset('fn')}}/js/starlight.js"></script>
-    <script src="{{asset('fn')}}/js/ResizeSensor.js"></script>
-    <script src="{{asset('fn')}}/js/dashboard.js"></script>
-    <script src="{{ asset('fn') }}/lib/highlightjs/highlight.pack.js"></script>
+    <script src="{{asset('b')}}/js/starlight.js"></script>
+    <script src="{{asset('b')}}/js/ResizeSensor.js"></script>
+    <script src="{{asset('b')}}/js/dashboard.js"></script>
+    <script src="{{ asset('b') }}/lib/highlightjs/highlight.pack.js"></script>
 
     
 

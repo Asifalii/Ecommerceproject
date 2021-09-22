@@ -929,54 +929,39 @@
 		<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
 			<!-- ========================================== SECTION – HERO ========================================= -->
 			
-<div id="hero">
-	<div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
-		
-		<div class="item" style="background-image: url({{asset('f')}}/assets/images/sliders/01.jpg);">
-			<div class="container-fluid">
-				<div class="caption bg-color vertical-center text-left">
-                    <div class="slider-header fadeInDown-1">Top Brands</div>
-					<div class="big-text fadeInDown-1">
-						New Collections
-					</div>
+			<div id="hero">
+				<div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+					@foreach ($sliders as $slider)
+						<div class="item" style="background-image: url({{ asset($slider->image) }});">
+							<div class="container-fluid">
+								<div class="caption bg-color vertical-center text-left">
+									<div class="slider-header fadeInDown-1">@if (session()->get('language')=='bangla') টপ-ব্রান্ড @else Top Brands @endif</div>
+									<div class="big-text fadeInDown-1">
+										@if(session()->get('language')=='bangla') ই-কম @else E-com @endif
+									</div>
+									<div class="excerpt fadeInDown-2 hidden-xs">
+										@if(session()->get('language')=='bangla')
+										<span>{{ $slider->title_bn }}</span>
+										@else
+										<span>{{ $slider->title_en }}</span>
+										@endif
+									</div>
+									<div class="button-holder fadeInDown-3">
+										<a href="index6c11.html?page=single-product" class="btn-lg btn btn-uppercase btn-primary shop-now-button">
+											@if(session()->get('language')=='bangla')
+											<span>{{ $slider->description_bn }}</span>
+											@else
+											<span>{{ $slider->description_en }}</span>
+											@endif</a>
+									</div>
+								</div><!-- /.caption -->
+							</div><!-- /.container-fluid -->
+						</div><!-- /.item -->	
+					@endforeach
 
-					<div class="excerpt fadeInDown-2 hidden-xs">
-					
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
-
-					</div>
-					<div class="button-holder fadeInDown-3">
-						<a href="index6c11.html?page=single-product" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a>
-					</div>
-				</div><!-- /.caption -->
-			</div><!-- /.container-fluid -->
-		</div><!-- /.item -->
-
-		<div class="item" style="background-image: url({{asset('f')}}/assets/images/sliders/02.jpg);">
-			<div class="container-fluid">
-				<div class="caption bg-color vertical-center text-left">
-                 <div class="slider-header fadeInDown-1">Spring 2016</div>
-					<div class="big-text fadeInDown-1">
-						Women <span class="highlight">Fashion</span>
-					</div>
-
-					<div class="excerpt fadeInDown-2 hidden-xs">
-						 
-					<span>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit</span>
-					
-					</div>
-					<div class="button-holder fadeInDown-3">
-						<a href="index6c11.html?page=single-product" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a>
-					</div>
-				</div><!-- /.caption -->
-			</div><!-- /.container-fluid -->
-		</div><!-- /.item -->
-		
-		
-
-	</div><!-- /.owl-carousel -->
-</div>
-			
+				</div><!-- /.owl-carousel -->
+			</div>
+						
 <!-- ========================================= SECTION – HERO : END ========================================= -->	
 
 			<!-- ============================================== INFO BOXES ============================================== -->

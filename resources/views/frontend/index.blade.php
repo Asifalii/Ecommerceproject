@@ -1029,7 +1029,7 @@
 								<div class="product">		
 									<div class="product-image">
 										<div class="image">
-											<a href="detail.html"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
+											<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_en) }}"><img src="{{ asset($product->product_thambnail) }}" alt=""></a>
 										</div><!-- /.image -->
 										@php                                           
 										$amount=$product->selling_price-$product->discount_price;
@@ -1119,23 +1119,60 @@
 						@php
 							$catwiseproduct=App\Models\Product::where('category_id',$categorie->id)->orderBy('id','DESC')->get();
 						@endphp
-						@foreach ($catwiseproduct as $product)
+						@forelse ($catwiseproduct as $product)
 							<div class="item item-carousel">
 								<div class="products">				
 									<div class="product">		
 										<div class="product-image">
 											<div class="image">
-												<a href="detail.html"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
+												<a href=""><img src="{{ asset($product->product_thambnail) }}" alt=""></a>
 											</div><!-- /.image -->
-											<div class="tag new"><span>new</span></div>                        		   
+											@php                                           
+											$amount=$product->selling_price-$product->discount_price;
+											$dis=($amount/$product->selling_price)*100;                                                                                       
+											@endphp
+											<div class="tag new">
+												@if($product->discount_price==null)
+														@if(session()->get('language')=='bangla')
+														<span>ণতুন</span>
+														@else 
+														<span>new</span>
+														@endif
+													@else 
+														@if(session()->get('language')=='bangla')
+														<span>{{ bn_price(round($dis)) }}৳</span>
+														@else 
+														<span>{{ round($dis) }}tk</span>
+														@endif 
+												@endif
+											</div>                        		   
 										</div><!-- /.product-image -->
 											<div class="product-info text-left">
-												<h3 class="name"><a href="detail.html">{{ $product->product_name_en }}</a></h3>
+												<h3 class="name"><a href="detail.html">
+													@if(session()->get('language')=='bangla')
+														{{ $product->product_name_bn }}
+													@else 
+														{{ $product->product_name_en }}t
+													@endif
+												</a></h3>
 												<div class="rating rateit-small"></div>
 												<div class="description"></div>
 													<div class="product-price">	
-														<span class="price">$450.99	</span>
-														<span class="price-before-discount">$ 800</span>															
+														@if($product->discount_price==null)
+															@if(session()->get('language')=='bangla')
+															<span class="price">{{ bn_price($product->selling_price) }}৳</span>
+															@else 
+															<span class="price">{{ $product->selling_price }}tk</span>
+															@endif
+														@else 
+															@if(session()->get('language')=='bangla')
+															<span class="price">{{ bn_price($product->discount_price) }}৳</span>
+															<span class="price-before-discount">{{ bn_price($product->selling_price) }}৳</span>
+															@else 
+															<span class="price">{{ $product->discount_price }}tk</span>
+															<span class="price-before-discount">{{ $product->selling_price }}tk</span>
+															@endif
+														@endif															
 													</div><!-- /.product-price -->								
 											</div><!-- /.product-info -->
 											<div class="cart clearfix animate-effect">
@@ -1145,7 +1182,7 @@
 															<button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart">
 																<i class="fa fa-shopping-cart"></i>													
 															</button>
-															<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+															<button class="btn btn-primary cart-btn" type="button">@if(session()->get('language')=='bangla')কার্ট এ যুক্ত করুন @else Add to cart @endif</button>
 																					
 														</li>
 													
@@ -1165,8 +1202,10 @@
 											</div><!-- /.cart -->
 									</div><!-- /.product -->					
 								</div><!-- /.products -->
-							</div><!-- /.item -->			
-						@endforeach
+							</div><!-- /.item -->
+						@empty 
+							<span class="text-danger">@if(session()->get('language')=='bangla') দুঃখিত-পন্ন নাই @else No Product Found @endif</span>	
+						@endforelse
 					</div><!-- /.home-owl-carousel -->
 				</div><!-- /.product-slider -->
 			</div><!-- /.tab-pane -->

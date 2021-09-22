@@ -14,6 +14,7 @@ class IndexController extends Controller
 {
     public function index()
     {
+
         $products=Product::where('status',1)->orderBy('id','DESC')->get();
         $categories=Category::orderBy('category_name_en','ASC')->get();
         /* limit(5) or we can use take() function aswell */

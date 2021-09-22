@@ -28,13 +28,23 @@
 						<li class="yamm-content">
 							<div class="row">
 								@php
-									$subcategory=App\Models\Subcategory::where('category_id','subactegory_id')->orderBy('subcategory_name_en','desc')->get();
+									 $subcategories=App\Models\Subcategory::where('category_id',$categorie->id)->orderBy('subcategory_name_en','ASC')->get();
 								@endphp
-								<div class="col-sm-12 col-md-3">							
-									<ul class="links list-unstyled">  
-										<li><a href="#">Dresses</a></li>
-									</ul>
-								</div><!-- /.col -->
+								@foreach ($subcategories as $cat)
+									<div class="col-xs-12 col-sm-12 col-md-3 sidebar">	
+										<a href="">
+											<h2 class="title">@if(session()->get('language')=='bangla') {{ $cat->subcategory_name_bn }} @else {{ $cat->subcategory_name_en }} @endif </h2>	
+										</a>	
+										@php
+											 $subsubcategories=App\Models\Subsubcategory::where('subcategory_id',$cat->id)->orderBy('subsubcategory_name_en','ASC')->get();
+										@endphp		
+										@foreach ($subsubcategories as $cat)	
+											<ul class="links list-unstyled">  
+												<li><a href="#">@if(session()->get('language')=='bangla') {{ $cat->subsubcategory_name_bn }} @else {{ $cat->subsubcategory_name_en }} @endif</a></li>
+											</ul>
+										@endforeach			
+									</div><!-- /.col -->
+								@endforeach								
 							</div><!-- /.row -->
 						</li><!-- /.yamm-content -->                    
 					</ul><!-- /.dropdown-menu -->            

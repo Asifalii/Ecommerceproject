@@ -271,31 +271,31 @@
                                                     <div class="row">
                                                         {{-- where('category_id',$cat->id) ai j ai ctaegory_id ta model Category saty milay data anba akta , cause amder toa categoryr under ai subcategory milan lagby --}}
                                                         @php
-                                                          $subcategories=App\Models\Subcategory::where('category_id',$cat)->orderBy('subcategory_name_en','ASC')->get();
+                                                          $subcategories=App\Models\Subcategory::where('category_id',$cat->id)->orderBy('subcategory_name_en','ASC')->get();
                                                         @endphp
-                                                    @foreach ($subcategories as $cat)                                                                                                
-                                                        <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                                @if (session()->get('language')== 'bangla')
-                                                                    <a href="">
-                                                                        <h2 class="title">{{ $cat->subcategory_name_bn }}</h2>
-                                                                    </a>
-                                                                @else
-                                                                         <h2 class="title">{{ $cat->subcategory_name_en }}</h2>
-                                                                @endif
-                                                                            {{-- where('subcategory_id',$cat->id) akdom same javaby sub anlam , same method --}}
-                                                                 @php
-                                                                    $subsubcategories=App\Models\Subsubcategory::where('subcategory_id',$cat->id)->orderBy('subsubcategory_name_en','ASC')->get();
-                                                                 @endphp                                                                
-                                                                @foreach ($subsubcategories as $cat)                                                                   
-                                                                <ul class="links">
-                                                                @if (session()->get('language')== 'bangla')
-                                                                    <li><a href="#">{{ $cat->subsubcategory_name_bn }}</a></li>                         
-                                                                @else
-                                                                    <li><a href="#">{{ $cat->subsubcategory_name_en }}</a></li>                         
-                                                                @endif              
-                                                            </ul>  
-                                                            @endforeach                                        
-                                                        </div><!-- /.col -->
+                                                        @foreach ($subcategories as $cat)                                                                                                
+                                                            <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                                                                    @if (session()->get('language')== 'bangla')
+                                                                        <a href="">
+                                                                            <h2 class="title">{{ $cat->subcategory_name_bn }}</h2>
+                                                                        </a>
+                                                                    @else
+                                                                            <h2 class="title">{{ $cat->subcategory_name_en }}</h2>
+                                                                    @endif
+                                                                                {{-- where('subcategory_id',$cat->id) akdom same javaby sub anlam , same method --}}
+                                                                    @php
+                                                                        $subsubcategories=App\Models\Subsubcategory::where('subcategory_id',$cat->id)->orderBy('subsubcategory_name_en','ASC')->get();
+                                                                    @endphp                                                                
+                                                                    @foreach ($subsubcategories as $cat)                                                                   
+                                                                    <ul class="links">
+                                                                    @if (session()->get('language')== 'bangla')
+                                                                        <li><a href="#">{{ $cat->subsubcategory_name_bn }}</a></li>                         
+                                                                    @else
+                                                                        <li><a href="#">{{ $cat->subsubcategory_name_en }}</a></li>                         
+                                                                    @endif              
+                                                                </ul>  
+                                                                @endforeach                                        
+                                                            </div><!-- /.col -->
                                                         @endforeach
                                                     </div>
                                                 </div>

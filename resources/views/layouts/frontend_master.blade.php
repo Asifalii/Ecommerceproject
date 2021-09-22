@@ -252,6 +252,7 @@
                                         <a href="home.html" data-hover="dropdown" class="dropdown-toggle"
                                             data-toggle="dropdown">@if (session()->get('language')== 'bangla') হোম @else Home @endif</a>
                                     </li>
+                                    {{-- ai $categories amra model dara call kory neay asllam , compact kore na , tai php tag neay kaj korlam  --}}
                                     @php
                                         $categories=App\Models\Category::orderBy('category_name_en','ASC')->get();
                                     @endphp
@@ -268,8 +269,9 @@
                                             <li>
                                                 <div class="yamm-content">
                                                     <div class="row">
+                                                        {{-- where('category_id',$cat->id) ai j ai ctaegory_id ta model Category saty milay data anba akta , cause amder toa categoryr under ai subcategory milan lagby --}}
                                                         @php
-                                                          $subcategories=App\Models\Subcategory::where('category_id',$cat->id)->orderBy('subcategory_name_en','ASC')->get();
+                                                          $subcategories=App\Models\Subcategory::where('category_id',$cat)->orderBy('subcategory_name_en','ASC')->get();
                                                         @endphp
                                                     @foreach ($subcategories as $cat)                                                                                                
                                                         <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
@@ -280,7 +282,7 @@
                                                                 @else
                                                                          <h2 class="title">{{ $cat->subcategory_name_en }}</h2>
                                                                 @endif
-
+                                                                            {{-- where('subcategory_id',$cat->id) akdom same javaby sub anlam , same method --}}
                                                                  @php
                                                                     $subsubcategories=App\Models\Subsubcategory::where('subcategory_id',$cat->id)->orderBy('subsubcategory_name_en','ASC')->get();
                                                                  @endphp                                                                

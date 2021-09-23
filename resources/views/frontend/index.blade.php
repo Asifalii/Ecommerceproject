@@ -57,7 +57,7 @@
 
 	<!-- ============================================== HOT DEALS ============================================== -->
 <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
-	<h3 class="section-title">hot deals</h3>
+	<h3 class="section-title">@if (session()->get('language')=='bangla')লভনিও ডিল @else hot deals @endif</h3>
 	<div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
 		@foreach ($hot_deals as $product)
 		<div class="item">
@@ -159,7 +159,7 @@
 			<!-- ============================================== SPECIAL OFFER ============================================== -->
 
 <div class="sidebar-widget outer-bottom-small wow fadeInUp">
-	<h3 class="section-title">Special Offer</h3>
+	<h3 class="section-title">@if(session()->get('language')=='bangla')বিশেষ অফার @else Special Offer @endif</h3>
 	<div class="sidebar-widget-body outer-top-xs">
 		<div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
 	        <div class="item">
@@ -207,28 +207,13 @@
 </div>
 
 <!-- ============================================== SPECIAL OFFER : END ============================================== -->
-			<!-- ============================================== PRODUCT TAGS ============================================== -->
-<div class="sidebar-widget product-tag wow fadeInUp">
-	<h3 class="section-title">Product tags</h3>
-	<div class="sidebar-widget-body outer-top-xs">
-		<div class="tag-list">					
-			<a class="item" title="Phone" href="category.html">Phone</a>
-			<a class="item active" title="Vest" href="category.html">Vest</a>
-			<a class="item" title="Smartphone" href="category.html">Smartphone</a>
-			<a class="item" title="Furniture" href="category.html">Furniture</a>
-			<a class="item" title="T-shirt" href="category.html">T-shirt</a>
-			<a class="item" title="Sweatpants" href="category.html">Sweatpants</a>
-			<a class="item" title="Sneaker" href="category.html">Sneaker</a>
-			<a class="item" title="Toys" href="category.html">Toys</a>
-			<a class="item" title="Rose" href="category.html">Rose</a>
-		</div><!-- /.tag-list -->
-	</div><!-- /.sidebar-widget-body -->
-</div><!-- /.sidebar-widget -->
+<!-- ============================================== PRODUCT TAGS ============================================== -->
+@include('frontend.inc.product_tags')
 <!-- ============================================== PRODUCT TAGS : END ============================================== -->
 			<!-- ============================================== SPECIAL DEALS ============================================== -->
 
 <div class="sidebar-widget outer-bottom-small wow fadeInUp">
-	<h3 class="section-title">Special Deals</h3>
+	<h3 class="section-title">@if(session()->get('language')=='bangla')বিশেষ কিছু প্রোডাক্ট @else Special Deals @endif</h3>
 	<div class="sidebar-widget-body outer-top-xs">
 		<div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
 			<div class="item">
@@ -641,7 +626,7 @@
 			<!-- ============================================== WIDE PRODUCTS : END ============================================== -->
 			<!-- ============================================== FEATURED PRODUCTS ============================================== -->
 <section class="section featured-product wow fadeInUp">
-	<h3 class="section-title">Featured products</h3>
+	<h3 class="section-title">@if(session()->get('language')=='bangla') ফিচারদ প্রোডাক্ট @else Featured products @endif</h3>
 	<div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 		@foreach ($featured as $product)
 			<div class="item item-carousel">
@@ -730,6 +715,7 @@
 		@endforeach	
 	</div>	
 </section><!-- /.section -->
+
 {{-- skip_product_0_start --}}
 <section class="section featured-product wow fadeInUp">
 	<h3 class="section-title">{{ $skip_category_0->category_name_en }}</h3>
@@ -822,6 +808,99 @@
 	</div>	
 </section><!-- /.section -->
 {{-- skip_product_0_end --}}
+
+{{-- skip_brandproduct_0_start --}}
+<section class="section featured-product wow fadeInUp">
+	<h3 class="section-title">@if(session()->get('language')=='bangla') {{ $skip_brand_0->brand_name_bn }} @else {{ $skip_brand_0->brand_name_en }} @endif</h3>
+	<div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+		@foreach ($skip_brandproduct_0 as $product)
+			<div class="item item-carousel">
+				<div class="products">				
+					<div class="product">		
+						<div class="product-image">
+							<div class="image">
+								<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_en) }}"><img src="{{ asset($product->product_thambnail) }}" alt=""></a>
+							</div><!-- /.image -->
+							@php                                           
+							$amount=$product->selling_price-$product->discount_price;
+							$dis=($amount/$product->selling_price)*100;                                                                                       
+							@endphp
+							<div class="tag new">
+								@if($product->discount_price==null)
+										@if(session()->get('language')=='bangla')
+										<span>ণতুন</span>
+										@else 
+										<span>new</span>
+										@endif
+									@else 
+										@if(session()->get('language')=='bangla')
+										<span>{{ bn_price(round($dis)) }}৳</span>
+										@else 
+										<span>{{ round($dis) }}tk</span>
+										@endif 
+								@endif
+							</div>                        		   
+						</div><!-- /.product-image -->
+							<div class="product-info text-left">
+								<h3 class="name"><a href="detail.html">
+									@if(session()->get('language')=='bangla')
+										{{ $product->product_name_bn }}
+									@else 
+										{{ $product->product_name_en }}t
+									@endif
+								</a></h3>
+								<div class="rating rateit-small"></div>
+								<div class="description"></div>
+									<div class="product-price">	
+										@if($product->discount_price==null)
+											@if(session()->get('language')=='bangla')
+											<span class="price">{{ bn_price($product->selling_price) }}৳</span>
+											@else 
+											<span class="price">{{ $product->selling_price }}tk</span>
+											@endif
+										@else 
+											@if(session()->get('language')=='bangla')
+											<span class="price">{{ bn_price($product->discount_price) }}৳</span>
+											<span class="price-before-discount">{{ bn_price($product->selling_price) }}৳</span>
+											@else 
+											<span class="price">{{ $product->discount_price }}tk</span>
+											<span class="price-before-discount">{{ $product->selling_price }}tk</span>
+											@endif
+										@endif															
+									</div><!-- /.product-price -->								
+							</div><!-- /.product-info -->
+							<div class="cart clearfix animate-effect">
+								<div class="action">
+									<ul class="list-unstyled">
+										<li class="add-cart-button btn-group">
+											<button data-toggle="tooltip" class="btn btn-primary icon" type="button" title="Add Cart">
+												<i class="fa fa-shopping-cart"></i>													
+											</button>
+											<button class="btn btn-primary cart-btn" type="button">@if(session()->get('language')=='bangla')কার্ট এ যুক্ত করুন @else Add to cart @endif</button>
+																	
+										</li>
+									
+										<li class="lnk wishlist">
+											<a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist">
+												<i class="icon fa fa-heart"></i>
+											</a>
+										</li>
+
+										<li class="lnk">
+											<a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare">
+												<i class="fa fa-signal" aria-hidden="true"></i>
+											</a>
+										</li>
+									</ul>
+								</div><!-- /.action -->
+							</div><!-- /.cart -->
+					</div><!-- /.product -->					
+				</div><!-- /.products -->
+			</div><!-- /.item -->
+		@endforeach	
+	</div>	
+</section><!-- /.section -->
+{{-- skip_brandproduct_0_end --}}
 			<!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
 			<!-- ============================================== WIDE PRODUCTS ============================================== -->
 <div class="wide-banners wow fadeInUp outer-bottom-xs">

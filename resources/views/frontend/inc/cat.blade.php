@@ -1,3 +1,4 @@
+{{-- ai category amra jokhn indexcontroller thekey compact kore pass korci tokhn ta akta view page ar jonno pathici , kintu aita onno view page tai php tag deay aivaby anay nawa laglo  --}}
 @php
     $categories=App\Models\Category::orderBy('category_name_en','ASC')->get();
 @endphp

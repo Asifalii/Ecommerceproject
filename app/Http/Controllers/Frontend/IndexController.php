@@ -40,7 +40,8 @@ class IndexController extends Controller
     }
 
     public function tag_product_view($tag){
-        $product=Product::where('status',1)->where('product_tags_bn',$tag)->orwhere('product_tags_en',$tag)->orderBy('id','DESC')->get();
-        return view('frontend.tagwise_product',compact('product'));
+        $products=Product::where('status',1)->where('product_tags_bn',$tag)->orwhere('product_tags_en',$tag)->orderBy('id','DESC')->paginate(1);
+        $categories=Category::orderBy('category_name_en','ASC')->get();
+        return view('frontend.tagwise_product',compact('products','categories'));
     }
 }

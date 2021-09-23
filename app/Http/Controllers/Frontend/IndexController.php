@@ -23,7 +23,11 @@ class IndexController extends Controller
         $categories=Category::orderBy('category_name_en','ASC')->get();
         /* limit(5) or we can use take() function aswell */
         $sliders=Slider::where('status',1)->orderBy('id','DESC')->limit(5)->get();
-        return view('frontend.index',compact('categories','sliders','products','featured','hot_deals','special_offer','special_deals'));
+
+        $skip_category_0=Category::skip(3)->first();
+        $skip_product_0=Product::where('status',1)->where('category_id',$skip_category_0->id)->orderBy('id','DESC')->get();
+        return view('frontend.index',compact('categories','sliders','products','featured',
+        'hot_deals','special_offer','special_deals','skip_category_0','skip_product_0'));
     }
 /* =================================single product view ========================================== */
     public function singleproduct($id, $slug)

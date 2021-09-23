@@ -249,7 +249,7 @@
                             <div class="nav-outer">
                                 <ul class="nav navbar-nav">
                                     <li class="active dropdown yamm-fw">
-                                        <a href="home.html" data-hover="dropdown" class="dropdown-toggle"
+                                        <a href="{{url('/')}}" data-hover="dropdown" class="dropdown-toggle"
                                             data-toggle="dropdown">@if (session()->get('language')== 'bangla') হোম @else Home @endif</a>
                                     </li>
                                     {{-- ai $categories amra model dara call kory neay asllam , compact kore na , tai php tag neay kaj korlam  --}}

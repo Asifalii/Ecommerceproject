@@ -423,7 +423,6 @@
 				
 	</div><!-- /.tab-content -->
 	<div class="clearfix filters-container">
-		
 			<div class="text-right">
 					<div class="pagination-container">
 				<ul class="list-inline list-unstyled">

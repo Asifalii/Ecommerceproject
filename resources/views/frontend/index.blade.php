@@ -387,7 +387,7 @@
 												@if(session()->get('language')=='bangla')
 													{{ $product->product_name_bn }}
 												@else 
-													{{ $product->product_name_en }}t
+													{{ $product->product_name_en }}
 												@endif
 											</a></h3>
 											<div class="rating rateit-small"></div>
@@ -483,7 +483,7 @@
 													@if(session()->get('language')=='bangla')
 														{{ $product->product_name_bn }}
 													@else 
-														{{ $product->product_name_en }}t
+														{{ $product->product_name_en }}
 													@endif
 												</a></h3>
 												<div class="rating rateit-small"></div>

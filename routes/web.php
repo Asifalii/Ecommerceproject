@@ -105,3 +105,6 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::get('language/english',[LanguageController::class,'english'])->name('english.language');
     Route::get('single/product/{id}/{slug}',[IndexController::class,'singleproduct']);
     Route::get('product/tag/{tag}',[IndexController::class,'tag_product_view']);
+    /* subcategory wise product show  */
+    Route::get('subactegory/product/{subcat_id}/{slug}',[IndexController::class,'subcatwise']);
+    Route::get('sub/subactegory/product/{subsubcat_id}/{slug}',[IndexController::class,'subsubcatwise']);

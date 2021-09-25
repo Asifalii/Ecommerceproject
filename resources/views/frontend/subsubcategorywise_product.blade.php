@@ -56,17 +56,7 @@
 									@endphp
 									<ul>
 										@foreach ($subcategories as $subcat)
-											<li>
-												@if(session()->get('language')=='bangla')
-													<a href="{{ url('subactegory/product/'.$subcat->id.'/'.$subcat->subcategory_slug_en) }}">
-														{{ $subcat->subcategory_name_bn }}
-													</a>	
-												@else 
-													<a href="{{ url('subactegory/product/'.$subcat->id.'/'.$subcat->subcategory_slug_bn) }}">
-														{{ $subcat->subcategory_name_en }}	
-													</a>
-												@endif 
-											</li>	
+											<li><a href="#">@if(session()->get('language')=='bangla')  {{ $subcat->subcategory_name_bn }} @else {{ $subcat->subcategory_name_en }} @endif</a></li>	
 										@endforeach
 									</ul>
 								</div><!-- /.accordion-inner -->

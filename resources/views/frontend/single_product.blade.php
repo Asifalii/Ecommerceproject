@@ -325,9 +325,6 @@
                                             @endforeach
                                         
                                         </div><!-- /#owl-single-product-thumbnails -->
-                            
-                                        
-                            
                                     </div><!-- /.gallery-thumbs -->
                             
                                 </div><!-- /.single-product-gallery -->
@@ -368,8 +365,7 @@
                                                 </div>	
                                             </div>
                                         </div><!-- /.row -->	
-                                    </div><!-- /.stock-container -->
-        
+                                    </div><!-- /.stock-container -->      
                                     <div class="description-container m-t-20">
                                         @if(session()->get('language')=='bangla')
                                             {!! $product->short_descp_bn  !!}

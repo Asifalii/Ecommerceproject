@@ -31,8 +31,8 @@
 						<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_en) }}"><img src="{{ asset($product->product_thambnail) }}" alt=""></a>
 					</div>
 						@php                                           
-						$amount=$product->selling_price-$product->discount_price;
-						$dis=($amount/$product->selling_price)*100;                                                                                       
+							$amount=$product->selling_price-$product->discount_price;
+							$dis=($amount/$product->selling_price)*100;                                                                                       
 						@endphp
 						<div class="sale-offer-tag">
 							@if($product->discount_price==null)
@@ -604,7 +604,7 @@
 									@if(session()->get('language')=='bangla')
 										{{ $product->product_name_bn }}
 									@else 
-										{{ $product->product_name_en }}t
+										{{ $product->product_name_en }}
 									@endif
 								</a></h3>
 								<div class="rating rateit-small"></div>
@@ -1098,7 +1098,7 @@
 	<div class="product">		
 		<div class="product-image">
 			<div class="image">
-				<a href="detail.html"><img  src="{{asset('f')}}/{{asset('f')}}/assets/images/products/p28.jpg" alt=""></a>
+				<a href="detail.html"><img  src="{{asset('f')}}/assets/images/products/p28.jpg" alt=""></a>
 			</div><!-- /.image -->			
 
 			<div class="tag new"><span>new</span></div>                        		   

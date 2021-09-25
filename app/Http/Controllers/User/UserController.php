@@ -5,8 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 class UserController extends Controller
 {
@@ -27,7 +27,7 @@ class UserController extends Controller
                 'name.required' => 'Put your name',
             ]
         );
-        User::findOrFail(auth::id())->update([
+        User::findOrFail(Auth::id())->update([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -37,9 +37,7 @@ class UserController extends Controller
             'message' => 'Successfully Data Updated',
             'alert-type' => 'success',
         ];
-        return Redirect()
-            ->back()
-            ->with($notification);
+        return Redirect()->back()->with($notification);
     }
 
     // image page view
@@ -65,9 +63,7 @@ class UserController extends Controller
                 'message' => 'Successfully Image Updated',
                 'alert-type' => 'success',
             ];
-             return Redirect()
-                ->back()
-                ->with($notification);
+             return Redirect()->back()->with($notification);
          }else{
              unlink($old_image);
              $image    = $request->file('image');    
@@ -81,9 +77,7 @@ class UserController extends Controller
                 'message' => 'Successfully Image Updated',
                 'alert-type' => 'success',
             ];
-             return Redirect()
-                ->back()
-                ->with($notification);
+             return Redirect()->back()->with($notification);
          }
     
 

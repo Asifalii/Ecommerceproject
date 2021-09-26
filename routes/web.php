@@ -108,3 +108,6 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     /* subcategory wise product show  */
     Route::get('subactegory/product/{subcat_id}/{slug}',[IndexController::class,'subcatwise']);
     Route::get('sub/subactegory/product/{subsubcat_id}/{slug}',[IndexController::class,'subsubcatwise']);
+    /* product view with modal  ajan  */
+    Route::get('product/view/modal/{id}',[IndexController::class,'productview_ajax']);
+

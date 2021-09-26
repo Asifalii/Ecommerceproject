@@ -8,6 +8,7 @@
     harset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
@@ -468,7 +469,68 @@
         </div>
     </footer>
     <!-- ============================================================= FOOTER : END============================================================= -->
+    
+    {{--==================================================== product add model start =================================== --}}
+    <!-- Modal -->
+    <div class="modal fade" id="cart_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><span id="pname"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card" style="width:16px;">
+                                        <img src="" class="card-img-top" id="pimage"  alt="" style="height:200px;">
+                                    </div>
+                                </div>
 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">Price:<strong id="price"></strong></li>
+                                            <li class="list-group-item">Product code:<strong id="pcode"></strong></li>
+                                            <li class="list-group-item">Category::<strong id="category_id"></strong></li>
+                                            <li class="list-group-item">Brand::<strong id="pbrand"></strong></li>
+                                            <li class="list-group-item">Stock</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Select color</label>
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                          <option>1</option>                                   
+                                        </select>
+                                      </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Select size</label>
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                          <option>1</option>                                       
+                                        </select>
+                                      </div>
+
+                                      <div class="form-group">
+                                        <label for="exampleInputEmail1">Quantinty</label>
+                                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="1" min="1">
+                                      </div>
+                                      
+                                      <button type="submit" class="btn btn-primary">Submit</button>                                
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+
+
+{{--==================================================== product add model end =================================== --}}
 
     <!-- For demo purposes – can be removed on production -->
 
@@ -515,6 +577,31 @@
           @endif
       </script>
 
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        })
+
+        function productview(id){ 
+           $.ajax({
+                type:'GET',
+                url:'product/view/modal/'+id,
+                dataType:'json',
+                success:function(data){
+                    $('#pname').text(data.product.product_name_en);
+                    $('#price').text(data.product.selling_price);
+                    $('#pcode').text(data.product.product_code);
+                    $('#category_id').text(data.product.category.category_name_en);
+                    $('#pbrand').text(data.product.brand.brand_name_en);
+                    $('#pimage').attr('src','/'+data.product.product_thambnail);
+                }
+
+           })
+        }
+        productview();
+    </script>
 </body>
 
 </html>

@@ -21,19 +21,36 @@ class IndexController extends Controller
         $categories=Category::orderBy('category_name_en','ASC')->get();
         $products=Product::where('status',1)->orderBy('id','DESC')->get();
         $featured=Product::where('featured',1)->where('status',1)->orderBy('id','DESC')->get();
-        $hot_deals =Product::where('hot_deals',1)->where('status',1)->where('discount_price','!=',null)->orderBy('id','DESC')->get();
+        
         $special_offer =Product::where('special_offer',1)->where('status',1)->orderBy('id','DESC')->get();
         $special_deals =Product::where('special_deals',1)->where('status',1)->orderBy('id','DESC')->get();
         return view('frontend.index',compact('categories','sliders','products','featured',
-        'hot_deals','special_offer','special_deals','skip_category_0','skip_product_0','skip_brand_0','skip_brandproduct_0'));
+        'special_offer','special_deals','skip_category_0','skip_product_0','skip_brand_0','skip_brandproduct_0'));
     }
 
     /* =================================single product view ========================================== */
-    public function singleproduct($id, $slug)
+    public function singleproduct($product_id, $slug)
     {
-        $product = Product::findOrFail($id);
-        $multiimgs = MultiImg::where('product_id', $id)->get();
-        return view('frontend.single_product', compact('product', 'multiimgs'));
+        $product = Product::findOrFail($product_id);
+        /* explode() helps us to ignore the coma between 2 colors , $product variable thaky color gula neay nilam  */
+        $color_en= $product->product_color_en;
+        $product_color_en=explode(',',$color_en);
+
+        $color_bn= $product->product_color_bn;
+        $product_color_bn=explode(',',$color_bn);
+
+        $product_size_en= $product->product_size_en;
+        $product_size_en=explode(',',$product_size_en);
+
+        $product_size_bn= $product->product_size_bn;
+        $product_size_bn=explode(',',$product_size_bn); 
+
+        /*  as  amder akhny kintu category id ta nai , tai aivaby ana jaby $cat_id=$product->category_id; / or 
+          $relationalproduct=Product::where('category_id',$product->category_id aivabyo ana jaby ->ordrBy('id','DESC')->get();*/
+        $cat_id=$product->category_id;
+        $relationalproduct=Product::where('category_id',$cat_id)->where('id','!=',$product_id)->orderBy('id','DESC')->get();
+        $multiimgs = MultiImg::where('product_id', $product_id)->get();
+        return view('frontend.single_product', compact('product', 'multiimgs','product_color_en','product_color_bn','product_size_en','product_size_bn','relationalproduct'));
     }
 
     public function tag_product_view($tag){
@@ -52,5 +69,31 @@ class IndexController extends Controller
         $products=Product::where('status',1)->where('subsubcategory_id',$subsubcat_id)->orderBy('id','DESC')->get();
         $categories=Category::orderBy('category_name_en','ASC')->get();
         return view('frontend.subsubcategorywise_product',compact('products','categories'));
+    }
+    /* ======================== view with ajax  --===========================*/
+    public function productview_ajax($product_id){
+        $product=Product::with('category','brand')->findOrFail($product_id);
+
+        $color_en= $product->product_color_en;
+        $product_color_en=explode(',',$color_en);
+
+        $color_bn= $product->product_color_bn;
+        $product_color_bn=explode(',',$color_bn);
+
+        $product_size_en= $product->product_size_en;
+        $product_size_en=explode(',',$product_size_en);
+
+        $product_size_bn= $product->product_size_bn;
+        $product_size_bn=explode(',',$product_size_bn); 
+
+    return response()->json(array(
+        'product'=>$product,
+        'product_color_en'=>$product_color_en,
+        'product_color_bn'=>$product_color_bn,
+        'product_size_en'=>$product_size_en,
+        'product_size_bn'=>$product_size_bn,
+
+
+    ));
     }
 }

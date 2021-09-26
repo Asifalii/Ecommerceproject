@@ -492,11 +492,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <ul class="list-group">
-                                            <li class="list-group-item">Price:<strong id="price"></strong></li>
+                                            <li class="list-group-item">Price:<strong class="text-danger">$<span id="price"></span></strong>
+                                            <del id="oldprice"></del>
+                                            </li>
                                             <li class="list-group-item">Product code:<strong id="pcode"></strong></li>
-                                            <li class="list-group-item">Category::<strong id="category_id"></strong></li>
-                                            <li class="list-group-item">Brand::<strong id="pbrand"></strong></li>
-                                            <li class="list-group-item">Stock</li>
+                                            <li class="list-group-item">Category:<strong id="category_id"></strong></li>
+                                            <li class="list-group-item">Brand:<strong id="pbrand"></strong></li>
+                                            <li class="list-group-item">Stock: <span class="badge badge-pill badge-success" id="avilable" style="background: green; color:white;" ></span>
+                                                <span class="badge badge-pill badge-danger" id="stockout" style="background: red; color:white;"></span>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -504,15 +508,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Select color</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                          <option>1</option>                                   
+                                        <select class="form-control" id="exampleFormControlSelect1"  name="product_color_en">
+                                                                      
                                         </select>
                                       </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" id="sizearea">
                                         <label for="exampleFormControlSelect1">Select size</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                          <option>1</option>                                       
+                                        <select class="form-control" id="exampleFormControlSelect1" name="product_size_en">
+                                                                          
                                         </select>
                                       </div>
 
@@ -590,12 +594,50 @@
                 url:'product/view/modal/'+id,
                 dataType:'json',
                 success:function(data){
+                    /* akhny only product neay kaj korci tai .product */
                     $('#pname').text(data.product.product_name_en);
                     $('#price').text(data.product.selling_price);
                     $('#pcode').text(data.product.product_code);
                     $('#category_id').text(data.product.category.category_name_en);
                     $('#pbrand').text(data.product.brand.brand_name_en);
                     $('#pimage').attr('src','/'+data.product.product_thambnail);
+
+                    /* to check if there is any discount */
+                    if (data.product.discount_price==null) {
+                        $('#price').text('');
+                        $('#oldprice').text('');
+                        $('#price').text(data.product.selling_price);
+                    }else{
+                        $('#price').text(data.product.discount_price);
+                        $('#oldprice').text(data.product.selling_price);
+                    }
+
+                    /* stoc  is also dame like them  */
+                    if (data.product.product_qty > 0) {
+                        $('#avilable').text('');
+                        $('#stockout').text('');
+                        $('#avilable').text('avilable');
+                    }else{
+                        $('#avilable').text('');
+                        $('#stockout').text('');
+                        $('#stockout').text('stockout');
+                    }
+
+                    /* akhny only color , jahaetu multipale color thaty pare tai amder for each ar moto loop calty hby , ajax a aivaby chaly  */
+                    $('select[name="product_color_en"]').empty();
+                    $.each(data.product_color_en,function(key,value){
+                        $('select[name="product_color_en"]').append('<option value="'+value+'">'+value+'</option>')
+                    })
+                    /* for size as like same color */
+                    $('select[name="product_size_en"]').empty();
+                    $.each(data.product_size_en,function(key,value){
+                        $('select[name="product_size_en"]').append('<option value="'+value+'">'+value+'</option>')
+                        if (data.product_size_en== "") {
+                            $('#sizearea').hide();
+                        } else {
+                            $('#sizearea').show();
+                        }
+                    })
                 }
 
            })

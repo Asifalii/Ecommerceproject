@@ -665,7 +665,7 @@
                                 qty:qty,
                                 pname:pname
                             },
-                            url:"cart/data/store/"+id,
+                            url:"/cart/data/store/"+id,
                             success:function(data){
                                 $('#closemodal').click();
                                 /* start message */

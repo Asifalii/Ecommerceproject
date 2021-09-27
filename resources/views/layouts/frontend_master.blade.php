@@ -478,7 +478,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><span id="pname"></span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true" id="closemodal">&times;</span>
                         </button>
                     </div>
                         <div class="modal-body">
@@ -557,8 +557,9 @@
     <script src="{{asset('f')}}/assets/js/bootstrap-select.min.js"></script>
     <script src="{{asset('f')}}/assets/js/wow.min.js"></script>
     <script src="{{asset('f')}}/assets/js/scripts.js"></script>
-
-     <!-- toster js link -->
+    {{-- sweet alert 2 --}}
+    <script src="http:////cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- toster js link -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     
     <script>
@@ -666,10 +667,35 @@
                             },
                             url:"cart/data/store/"+id,
                             success:function(data){
-                                console.log(data)
-                            }
+                                $('#closemodal').click();
+                                /* start message */
+                                    const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                    timer: 3000,
+                                    })
+
+                                    if($.isEmptyObject(data.error)){
+                                            Toast.fire({
+                                                type: 'success',
+                                                icon: 'success',
+                                                title: data.success
+                                                    })
+                                        }else{
+                                            Toast.fire({
+                                                type: 'error',
+                                                icon: 'error',
+                                                title: data.error
+                                                
+                                            })
+                                        }
+                                /* end message */
+                              
+                              }
                             })
-        }
+                        }
         /* ================End show add to cart with ajax =========================== */
 
     </script>

@@ -23,7 +23,7 @@ class CartController extends Controller
                     'options' => ['product_size_en' => $request->product_size_en],
                     'options' => ['pimage' => $product->product_thambnail], 
                     ]);
-                    return response()->json('success');
+                    return response()->json(['success'=>'successfully added on your cart']);
             } else {
                 Cart::add([
                     'id' => $id,
@@ -35,7 +35,7 @@ class CartController extends Controller
                     'options' => ['product_size_en' => $request->product_size_en],
                     'options' => ['pimage' => $product->product_thambnail],
                     ]);
-                    return response()->json('success');
+                    return response()->json(['success'=>'successfully added on your cart']);
             }
     }
 }

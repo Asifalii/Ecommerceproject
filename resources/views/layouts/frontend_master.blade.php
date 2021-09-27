@@ -507,25 +507,25 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Select color</label>
-                                        <select class="form-control" id="exampleFormControlSelect1"  name="product_color_en">
+                                        <label for="product_color_en">Select color</label>
+                                        <select class="form-control" id="product_color_en"  name="product_color_en">
                                                                       
                                         </select>
                                       </div>
 
                                     <div class="form-group" id="sizearea">
-                                        <label for="exampleFormControlSelect1">Select size</label>
-                                        <select class="form-control" id="exampleFormControlSelect1" name="product_size_en">
+                                        <label for="product_size_en">Select size</label>
+                                        <select class="form-control" id="product_size_en" name="product_size_en">
                                                                           
                                         </select>
                                       </div>
 
                                       <div class="form-group">
-                                        <label for="exampleInputEmail1">Quantinty</label>
-                                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="1" min="1">
+                                        <label for="qty">Quantinty</label>
+                                        <input type="number" class="form-control" id="qty" aria-describedby="emailHelp" value="1" min="1">
                                       </div>
-                                      
-                                      <button type="submit" class="btn btn-primary">Submit</button>                                
+                                      <input type="hidden" id="product_id">
+                                      <button type="submit" class="btn btn-primary" onclick="addtocart()">Add to cart</button>                                
                                 </div>
                             </div>
                         </div>
@@ -580,7 +580,7 @@
           }
           @endif
       </script>
-
+    {{-- ============================ Start show product in modal with ajax================= --}}
     <script type="text/javascript">
         $.ajaxSetup({
             headers:{
@@ -601,6 +601,8 @@
                     $('#category_id').text(data.product.category.category_name_en);
                     $('#pbrand').text(data.product.brand.brand_name_en);
                     $('#pimage').attr('src','/'+data.product.product_thambnail);
+                    $('#product_id').val(id);
+                    $('#qty').val(1);
 
                     /* to check if there is any discount */
                     if (data.product.discount_price==null) {
@@ -628,6 +630,7 @@
                     $.each(data.product_color_en,function(key,value){
                         $('select[name="product_color_en"]').append('<option value="'+value+'">'+value+'</option>')
                     })
+
                     /* for size as like same color */
                     $('select[name="product_size_en"]').empty();
                     $.each(data.product_size_en,function(key,value){
@@ -642,8 +645,35 @@
 
            })
         }
-        productview();
+        /* ================end show product in modal with ajax=========================== */
+        /* ================start show add to cart with ajax =========================== */
+
+        function addtocart(){
+                        var pname=$('#pname').text();
+                        var id=$('#product_id').val();
+                        var product_color_en=$('#product_color_en option:selected').text();
+                        var product_size_en=$('#product_size_en option:selected').text();
+                        var qty=$('#qty').val();
+
+                        $.ajax({
+                            type:"POST",
+                            dataType:'json',
+                            data:{
+                                product_color_en:product_color_en,
+                                product_size_en:product_size_en,
+                                qty:qty,
+                                pname:pname
+                            },
+                            url:"cart/data/store/"+id,
+                            success:function(data){
+                                console.log(data)
+                            }
+                            })
+        }
+        /* ================End show add to cart with ajax =========================== */
+
     </script>
+    
 </body>
 
 </html>

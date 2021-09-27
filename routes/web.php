@@ -7,8 +7,10 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Frontend\Indexcontroller;
+
 use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', function () {
@@ -110,4 +112,6 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::get('sub/subactegory/product/{subsubcat_id}/{slug}',[IndexController::class,'subsubcatwise']);
     /* product view with modal  ajan  */
     Route::get('product/view/modal/{id}',[IndexController::class,'productview_ajax']);
+    /* add to cart */
+    Route::post('/cart/data/store/{id}',[CartController::class,'addtocart']);
 

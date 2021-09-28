@@ -114,4 +114,6 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::get('product/view/modal/{id}',[IndexController::class,'productview_ajax']);
     /* add to cart */
     Route::post('/cart/data/store/{id}',[CartController::class,'addtocart']);
+    /* mini cart route  */
+    Route::get('/product/view/minicart',[CartController::class,'minicart']);
 

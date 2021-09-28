@@ -172,11 +172,11 @@
                                     <div class="basket">
                                         <i class="glyphicon glyphicon-shopping-cart"></i>
                                     </div>
-                                    <div class="basket-item-count"><span class="count">2</span></div>
+                                    <div class="basket-item-count"><span class="count" id="cart_total"></span></div>
                                     <div class="total-price-basket">
                                         <span class="lbl">cart -</span>
                                         <span class="total-price">
-                                            <span class="sign">$</span><span class="value">600.00</span>
+                                            <span class="sign">$</span><span class="value" id="card_subtotal"></span>
                                         </span>
                                     </div>
 
@@ -185,32 +185,17 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <div class="cart-item product-summary">
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="image">
-                                                    <a href="detail.html"><img src="{{asset('f')}}/
-                                                    assets/images/cart.jpg" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-7">
-
-                                                <h3 class="name"><a href="index8a95.html?page-detail">Simple Product</a>
-                                                </h3>
-                                                <div class="price">$600.00</div>
-                                            </div>
-                                            <div class="col-xs-1 action">
-                                                <a href="#"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div><!-- /.cart-item -->
-                                    <div class="clearfix"></div>
+                                    {{-- cart item view with ajax start --}}
+                                    <div id="minicart">
+                                        
+                                    </div>
+                                    {{-- cart item view with ajax end --}} 
                                     <hr>
 
                                     <div class="clearfix cart-total">
                                         <div class="pull-right">
 
-                                            <span class="text">Sub Total :</span><span class='price'>$600.00</span>
+                                            <span class="text">Sub Total :</span><span class='price' id="card_subtotal "></span>
 
                                         </div>
                                         <div class="clearfix"></div>
@@ -592,7 +577,7 @@
         function productview(id){ 
            $.ajax({
                 type:'GET',
-                url:'product/view/modal/'+id,
+                url:'/product/view/modal/'+id,
                 dataType:'json',
                 success:function(data){
                     /* akhny only product neay kaj korci tai .product */
@@ -667,6 +652,7 @@
                             },
                             url:"/cart/data/store/"+id,
                             success:function(data){
+                              minicart();
                                 $('#closemodal').click();
                                 /* start message */
                                     const Toast = Swal.mixin({
@@ -699,6 +685,45 @@
         /* ================End show add to cart with ajax =========================== */
 
     </script>
+    {{-- ====================mini cart function here start --}}
+    <script>
+        function minicart(){ 
+           $.ajax({
+                type:'GET',
+                url:'/product/view/minicart',
+                dataType:'json',
+                success:function(response){
+                    $('span[id="card_subtotal"]').text(response.cart_total);
+                    $('#cart_total').text(response.cart_qty);
+                    var minicart = ""
+                    $.each(response.carts,function(key, value){
+                        minicart += ` <div class="cart-item product-summary">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="image">
+                                                    <a href="detail.html"><img src="/${value.options.pimage}" alt=""></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-7">
+
+                                                <h3 class="name"><a href="index8a95.html?page-detail">${value.name}</a>
+                                                </h3>
+                                                <div class="price">${value.price}</div>
+                                            </div>
+                                            <div class="col-xs-1 action">
+                                                <a href="#"><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.cart-item -->
+                                    <div class="clearfix"></div>`
+                        $('#minicart').html(minicart);
+                    })
+                }
+           })
+        }
+        minicart();
+    </script>
+    {{-- ====================mini cart function here end --}}
     
 </body>
 

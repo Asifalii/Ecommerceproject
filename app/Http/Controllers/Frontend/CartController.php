@@ -19,9 +19,10 @@ class CartController extends Controller
                     'qty' => $request->qty,
                     'price' => $product->selling_price,
                     'weight' => 1,
-                    'options' => ['product_color_en' => $request->product_color_en],
-                    'options' => ['product_size_en' => $request->product_size_en],
-                    'options' => ['pimage' => $product->product_thambnail], 
+                    'options' => ['product_color_en' => $request->product_color_en,
+                                    'product_size_en' => $request->product_size_en,
+                                    'pimage' => $product->product_thambnail,
+                                ],
                     ]);
                     return response()->json(['success'=>'successfully added on your cart']);
             } else {
@@ -31,11 +32,24 @@ class CartController extends Controller
                     'qty' => $request->qty,
                     'price' => $product->discount_price,
                     'weight' => 1,
-                    'options' => ['product_color_en' => $request->product_color_en],
-                    'options' => ['product_size_en' => $request->product_size_en],
-                    'options' => ['pimage' => $product->product_thambnail],
+                    'options' => ['product_color_en' => $request->product_color_en,
+                                    'product_size_en' => $request->product_size_en,
+                                    'pimage' => $product->product_thambnail,
+                                ],
+
                     ]);
                     return response()->json(['success'=>'successfully added on your cart']);
             }
+    }
+    /* bring cart content by calling Cart::content() ai vaby cart model k call kore cart a ja ja content thaky sob pull kora hoy  */
+    public function minicart(){
+        $carts=Cart::content();
+        $cart_qty=Cart::count();
+        $cart_total=Cart::total();
+        return response()->json(array(
+            'carts'=>$carts,
+            'cart_qty'=>$cart_qty,
+            'cart_total'=>round($cart_total),      
+        ));
     }
 }

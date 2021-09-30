@@ -52,4 +52,9 @@ class CartController extends Controller
             'cart_total'=>round($cart_total),      
         ));
     }
+    
+    public function minicartremove($rowId){
+       Cart::remove($rowId);
+       return response()->json(['success'=>'successfully removed ']);
+    }
 }

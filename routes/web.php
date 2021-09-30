@@ -116,4 +116,5 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::post('/cart/data/store/{id}',[CartController::class,'addtocart']);
     /* mini cart route  */
     Route::get('/product/view/minicart',[CartController::class,'minicart']);
+    Route::get('/minicart/product/remove/{rowId}',[CartController::class,'minicartremove']);
 

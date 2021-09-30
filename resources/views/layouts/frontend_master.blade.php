@@ -711,17 +711,51 @@
                                                 <div class="price">${value.price}</div>
                                             </div>
                                             <div class="col-xs-1 action">
-                                                <a href="#"><i class="fa fa-trash"></i></a>
+                                                <button type=submit" id="${value.rowId}" onclick="minicartremove(this.id)"><i class="fa fa-trash"></i></button>
                                             </div>
                                         </div>
                                     </div><!-- /.cart-item -->
                                     <div class="clearfix"></div>`
-                        $('#minicart').html(minicart);
                     })
+                        $('#minicart').html(minicart);
                 }
            })
         }
         minicart();
+
+        function minicartremove(rowId){
+           
+            $.ajax({
+                type:'GET',
+                url:'/minicart/product/remove/'+rowId,
+                dataType:'json',
+                success:function(data){
+                    minicart()
+                    const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                    timer: 3000,
+                                    })
+
+                                    if($.isEmptyObject(data.error)){
+                                            Toast.fire({
+                                                type: 'success',
+                                                icon: 'success',
+                                                title: data.success
+                                                    })
+                                        }else{
+                                            Toast.fire({
+                                                type: 'error',
+                                                icon: 'error',
+                                                title: data.error
+                                                
+                                            })
+                                        }
+                }
+            })
+        }
     </script>
     {{-- ====================mini cart function here end --}}
     

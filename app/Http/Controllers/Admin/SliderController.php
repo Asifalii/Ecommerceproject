@@ -76,8 +76,8 @@ class SliderController extends Controller
             'title_bn'=>$request->title_bn,
             'description_en'=>$request->description_en,
             'description_bn'=>$request->description_bn,
-            'image'=>$save_url,
             'created_at'=>Carbon::now(),
+
         ]);
 
         $notification = [

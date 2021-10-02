@@ -54,7 +54,7 @@
                     <div class="cnt-account">
                         <ul class="list-unstyled">
                             <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-                            <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
+                            <li><a href="{{ route('wishlist') }}"><i class="icon fa fa-heart"></i>Wishlist</a></li>
                             <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
                             <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
                             
@@ -700,7 +700,7 @@
                         minicart += ` <div class="cart-item product-summary">
                                         <div class="row">
                                             <div class="col-xs-4">
-                    d                            <div class="image">
+                                                <div class="image">
                                                     <a href="detail.html"><img src="/${value.options.pimage}" alt=""></a>
                                                 </div>
                                             </div>
@@ -798,7 +798,41 @@
                 })
         }
     </script>
-    
+
+    {{-- wisshlist product view start --}}
+    <script>
+        function wishlist(){ 
+           $.ajax({
+                type:'GET',
+                url: "{{ url('user/get/wishlist/product_view/') }}/",
+                dataType:'json',
+                success:function(response){                   
+                    var rows = ""
+                    $.each(response,function(key, value){
+                        rows += `<tr>
+                                <td class="col-md-2"><img src="/${value.product.product_thambnail}" alt="imga"></td>
+                                <td class="col-md-7">
+                                    <div class="product-name"><a href="#">${value.product.product_name_en}</a></div>
+                                    <div class="price">
+                                        $400.00
+                                        <span>$900.00</span>
+                                    </div>
+                                </td>
+                                <td class="col-md-2">
+                                    <a href="#" class="btn-upper btn btn-primary">Add to cart</a>
+                                </td>
+                                <td class="col-md-1 close-btn">
+                                    <a href="#" class=""><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>`
+                    })
+                        $('#wishlist').html(rows);
+                }
+           })
+        }
+        wishlist();
+    </script>
+    {{-- wisshlist product view end --}}
 </body>
 
 </html>

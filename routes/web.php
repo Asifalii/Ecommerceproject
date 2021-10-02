@@ -99,11 +99,13 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::post('update/image',[UserController::class,'updateimage'])->name('update-image');
     Route::get('change/password',[UserController::class,'change_password_view_page_method'])->name('change_password_view_page');
     Route::post('change/password',[UserController::class,'change_password_method'])->name('change-password');
-  
+    /* ============== wishlist page view ======================= */
+    Route::get('wishlist-page-view',[WishlistController::class,'create'])->name('wishlist');
+    Route::get('/get/wishlist/product_view/',[WishlistController::class,'read_allproduct_wishlist']);
 
  
 }); 
-/* ===================================front end route==============================*/
+    /* ===================================front end route==============================*/
 
     Route::get('language/bangla',[LanguageController::class,'bangla'])->name('bangla.language');
     Route::get('language/english',[LanguageController::class,'english'])->name('english.language');
@@ -123,3 +125,5 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::get('/minicart/product/remove/{rowId}',[CartController::class,'minicartremove']);
     /* ===========================wish_list route =========================== */
     Route::post('/wishlist/product_add/{product_id}',[CartController::class,'add_to_wish_list']);
+    
+

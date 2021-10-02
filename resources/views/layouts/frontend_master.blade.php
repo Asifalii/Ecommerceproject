@@ -813,7 +813,7 @@
                                 <td class="col-md-2"><img src="/${value.product.product_thambnail}" alt="imga"></td>
                                 <td class="col-md-7">
                                     <div class="product-name"><a href="#">${value.product.product_name_en}</a></div>
-                                    
+                                  
                                     <div class="price">
                                         ${value.product.discount_price==null
                                             ? `Tk${value.product.selling_price} `
@@ -823,7 +823,10 @@
                                     </div>
                                 </td>
                                 <td class="col-md-2">
-                                    <a href="#" class="btn-upper btn btn-primary">Add to cart</a>
+                                    <button href="#" class="btn-upper btn btn-primary" data-toggle="modal" data-target="#cart_modal" id="${value.product_id}" onclick="productview(this.id)"> 
+									<i class="fa fa-shopping-cart"></i>
+                                                Add to cart
+                                    </button>
                                 </td>
                                 <td class="col-md-1 close-btn">
                                     <a href="#" class=""><i class="fa fa-times"></i></a>

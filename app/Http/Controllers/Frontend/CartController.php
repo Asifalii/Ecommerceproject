@@ -72,12 +72,18 @@ class CartController extends Controller
     }  */
     public function add_to_wish_list(Request $request, $product_id){
         if(Auth::check()){
-            Whishlist::insert([
-                'user_id'=>Auth::id(),
-                'product_id'=>$product_id,
-                'created_at'=>Carbon::now(),
-            ]);
-            return response()->json(['success'=>' Successsfully added to your wishlist .. ']);
+            $exits=Whishlist::where('user_id',Auth::id())->where('product_id',$product_id)->first();
+            if(!$exits){
+                Whishlist::insert([
+                    'user_id'=>Auth::id(),
+                    'product_id'=>$product_id,
+                    'created_at'=>Carbon::now(),
+                ]);
+                return response()->json(['success'=>' Successsfully added to your wishlist .. ']);
+            }else{
+                return response()->json(['success'=>' Product already added to your wishlist .. ']);
+            }
+          
         }else{
             return response()->json(['error'=>' Please loged in first ']);
         } 

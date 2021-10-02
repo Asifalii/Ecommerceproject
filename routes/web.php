@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Frontend\Indexcontroller;
-
+use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', function () {
@@ -99,6 +99,8 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::post('update/image',[UserController::class,'updateimage'])->name('update-image');
     Route::get('change/password',[UserController::class,'change_password_view_page_method'])->name('change_password_view_page');
     Route::post('change/password',[UserController::class,'change_password_method'])->name('change-password');
+  
+
  
 }); 
 /* ===================================front end route==============================*/
@@ -110,11 +112,14 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     /* subcategory wise product show  */
     Route::get('subactegory/product/{subcat_id}/{slug}',[IndexController::class,'subcatwise']);
     Route::get('sub/subactegory/product/{subsubcat_id}/{slug}',[IndexController::class,'subsubcatwise']);
-    /* product view with modal  ajan  */
+    /* product view with modal  ajan   arekta very very important note , 
+    jahetu amra route name ta front end ar jono likci tai prefix na thakar karony product/view/modal/ aivaby  
+    likci kaj hoye gacy , prefix thakly kivaby korbo ta wishlist ar route a dakho  */
     Route::get('product/view/modal/{id}',[IndexController::class,'productview_ajax']);
     /* add to cart */
     Route::post('/cart/data/store/{id}',[CartController::class,'addtocart']);
     /* mini cart route  */
     Route::get('/product/view/minicart',[CartController::class,'minicart']);
     Route::get('/minicart/product/remove/{rowId}',[CartController::class,'minicartremove']);
-
+    /* ===========================wish_list route =========================== */
+    Route::post('/wishlist/product_add/{product_id}',[CartController::class,'add_to_wish_list']);

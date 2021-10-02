@@ -543,11 +543,11 @@
 																	
 										</li>
 									
-										<li class="lnk wishlist">
-											<a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist">
-												<i class="icon fa fa-heart"></i>
-											</a>
-										</li>
+										
+											<button  class="btn btn-primary icon" type="button" title="Add To Wish-List"  id="{{ $product->id }}" onclick="add_to_wish_list(this.id)"> 
+												<i class="icon fa fa-heart"></i>												
+											</button>
+										
 
 										<li class="lnk">
 											<a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare">

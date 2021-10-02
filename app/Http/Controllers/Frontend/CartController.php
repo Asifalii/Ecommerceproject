@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\Product;
+use App\Models\Whishlist;
+use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -55,6 +59,27 @@ class CartController extends Controller
     
     public function minicartremove($rowId){
        Cart::remove($rowId);
-       return response()->json(['success'=>'successfully removed ']);
+       return response()->json(['success'=>'1 prooduct removed from that card  ']);
+    }
+
+    /* ass data post ar madhome asty tai Request $request, ai duita parameter obosi lagby */
+    /* r jahaety amder user loged in hower por e ai funtion tay hit korby tai check kore nawa 
+    lagy , amder case a prefix a auth kora acy , amra taw check korabo cause alert show koranor jono aijy aituku 
+    if(Auth::check()){
+        
+    }else{
+        return response()->json(['error'=>' Please loged in first ']);
+    }  */
+    public function add_to_wish_list(Request $request, $product_id){
+        if(Auth::check()){
+            Whishlist::insert([
+                'user_id'=>Auth::id(),
+                'product_id'=>$product_id,
+                'created_at'=>Carbon::now(),
+            ]);
+            return response()->json(['success'=>' Successsfully added to your wishlist .. ']);
+        }else{
+            return response()->json(['error'=>' Please loged in first ']);
+        } 
     }
 }

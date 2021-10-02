@@ -700,7 +700,7 @@
                         minicart += ` <div class="cart-item product-summary">
                                         <div class="row">
                                             <div class="col-xs-4">
-                                                <div class="image">
+                    d                            <div class="image">
                                                     <a href="detail.html"><img src="/${value.options.pimage}" alt=""></a>
                                                 </div>
                                             </div>
@@ -731,6 +731,7 @@
                 dataType:'json',
                 success:function(data){
                     minicart()
+                    /* message start */
                     const Toast = Swal.mixin({
                                     toast: true,
                                     position: 'top-end',
@@ -753,11 +754,50 @@
                                                 
                                             })
                                         }
+                                        /* message end */
                 }
             })
         }
     </script>
     {{-- ====================mini cart function here end --}}
+    <script>
+        function add_to_wish_list(product_id){
+                
+            $.ajax({
+                type:"POST",
+                dataType:'json',
+                url: "{{ url('/wishlist/product_add/') }}/"+product_id,
+
+                success:function(data){
+                    /* start message */
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 3000,
+                        })
+
+                        if($.isEmptyObject(data.error)){
+                                Toast.fire({
+                                    type: 'success',
+                                    icon: 'success',
+                                    title: data.success
+                                        })
+                            }else{
+                                Toast.fire({
+                                    type: 'error',
+                                    icon: 'error',
+                                    title: data.error
+                                    
+                                })
+                            }
+                    /* end message */
+                    
+                    }
+                })
+        }
+    </script>
     
 </body>
 

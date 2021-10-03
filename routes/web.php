@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CuponController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartController;
@@ -88,6 +89,18 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
      Route::get('slider_delet/{id}',[SliderController::class,'delet']);
      Route::get('slider_active/{id}',[SliderController::class,'active']);
      Route::get('slider_inactive/{id}',[SliderController::class,'inactive']);
+     /*=============================== Cupone routes bellow ================ */
+     Route::get('cupone-page',[CuponController::class,'create'])->name('cupone');
+     Route::post('cupone-store',[CuponController::class,'store'])->name('cupone-store');
+     
+
+
+
+
+
+
+
+
 });
 
 

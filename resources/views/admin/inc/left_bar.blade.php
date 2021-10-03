@@ -60,6 +60,14 @@
             <li class="nav-item"><a href="{{ route('create_product') }}" class="nav-link @yield('product')">Add-Product</a></li>
             <li class="nav-item"><a href="{{ route('products') }}" class="nav-link @yield('product_view')">Products</a></li>
         </ul>
+
+        <a href="{{ route('cupone') }}" class="sl-menu-link  @yield('cupone')" >
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
+                <span class="menu-item-label">Cupone</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+
         </ul>
         
     </div><!-- sl-sideleft-menu -->

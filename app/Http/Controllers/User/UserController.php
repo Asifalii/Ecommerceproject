@@ -120,18 +120,14 @@ class UserController extends Controller
                 'message' => 'New password & confirm passworddoesn,t match, plase try again !',
                 'alert-type' => 'error',
             ];
-             return Redirect()
-                ->back()
-                ->with($notification);
+             return Redirect()->back()->with($notification);
           }
        }else {
         $notification = [
             'message' => 'Old password does,t match in our database',
             'alert-type' => 'error',
         ];
-         return Redirect()
-            ->back()
-            ->with($notification);
+         return Redirect()->back()->with($notification);
      }
        }
 

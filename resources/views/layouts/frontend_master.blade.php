@@ -55,7 +55,7 @@
                         <ul class="list-unstyled">
                             <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
                             <li><a href="{{ route('wishlist') }}"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                            <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                            <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
                             <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
                             
                             <li>
@@ -724,7 +724,6 @@
         minicart();
 
         function minicartremove(rowId){
-           
             $.ajax({
                 type:'GET',
                 url:'/minicart/product/remove/'+rowId,
@@ -829,7 +828,7 @@
                                     </button>
                                 </td>
                                 <td class="col-md-1 close-btn">
-                                    <a href="#" class=""><i class="fa fa-times"></i></a>
+                                    <button type=submit" id="${value.id}" onclick="wishlist_product_remove(this.id)"><i class="fa fa-times"></i></button>
                                 </td>
                             </tr>`
                     })
@@ -838,8 +837,136 @@
            })
         }
         wishlist();
+
+        function wishlist_product_remove(id){
+            $.ajax({
+                type:'GET',
+                url: "{{ url('user/get/wishlist/product_remove/') }}/"+id,
+                dataType:'json',
+                success:function(data){
+                    wishlist()
+                    /* message start */
+                    const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                    timer: 3000,
+                                    })
+
+                                    if($.isEmptyObject(data.error)){
+                                            Toast.fire({
+                                                type: 'success',
+                                                icon: 'success',
+                                                title: data.success
+                                                    })
+                                        }else{
+                                            Toast.fire({
+                                                type: 'error',
+                                                icon: 'error',
+                                                title: data.error
+                                                
+                                            })
+                                        }
+                                        /* message end */
+                }
+            })
+        }
     </script>
     {{-- wisshlist product view end --}}
+
+    {{-- mycart list start  --}}
+    <script>
+        function mycart(){ 
+           $.ajax({
+                type:'GET',
+                url: "{{ url('user/get/mycartlist/product_view/') }}/",
+                dataType:'json',
+                success:function(response){                   
+                    var rows = ""
+                    $.each(response.carts, function(key, value){
+                        rows += `<tr>
+                                <td class="col-md-1"><img src="/${value.options.pimage}" alt="imga" style="height:60px; width:60px;"></td>
+                               
+                                <td class="col-md-2">
+                                    <div class="product-name"><a href="#">${value.options.product_name_en}</a></div>
+                                  
+                                    <div class="price">
+                                        ${value.price}
+                                    </div>
+                                </td>
+
+                                <td class="col-md-2">
+                                    <strong>${value.options.product_color_en}</strong>
+                                </td>
+
+                                <td class="col-md-1">
+                                    ${value.options.product_size_en==null
+                                            ? `<strong>........</strong> `
+                                            :
+                                            `<strong>${value.options.product_size_en}</strong>`    
+                                         }
+                                </td>
+
+                                <td class="col-md-2">                            
+                                    <button type="submit" class="btn btn-success btn-sm">+</button>
+                                        <strong>${value.qty}</strong>
+                                    <button type="submit" class="btn btn-danger btn-sm">-</button>                             
+                                </td>
+
+                                <td class="col-md-1">
+                                    <div class="price"><strong>$${value.subtotal}</strong>
+                                </div>
+                                </td>
+
+                                <td class="col-md-1 close-btn">
+                                    <button type=submit" id="${value.rowId}" onclick="mycart_remove_product(this.id)"><i class="fa fa-times"></i></button>
+                                </td>
+                            </tr>`
+                    })
+                        $('#mycartlist').html(rows);
+                }
+           })
+        }
+        mycart();
+
+        function mycart_remove_product(id){
+            $.ajax({
+                type:'GET',
+                url: "{{ url('/user/mycart/product_remove/') }}/"+id,
+                dataType:'json',
+                success:function(data){
+                    mycart()
+                    minicart();
+                    /* message start */
+                    const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                    timer: 3000,
+                                    })
+
+                                    if($.isEmptyObject(data.error)){
+                                            Toast.fire({
+                                                type: 'success',
+                                                icon: 'success',
+                                                title: data.success
+                                                    })
+                                    }else{
+                                        Toast.fire({
+                                            type: 'error',
+                                            icon: 'error',
+                                            title: data.error
+                                            
+                                        })
+                                    }
+                                    /* message end */
+                }
+            })
+        }
+    </script>
+    {{-- mycart list end  --}}
 </body>
 
 </html>

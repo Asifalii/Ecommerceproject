@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Frontend\Indexcontroller;
-use App\Http\Controllers\User\CartPageController;
 use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,6 +57,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
      Route::get('sub-category-edit/{cat_id}',[CategoryController::class,'sub_edit']);
      Route::post('update_sub_cat',[CategoryController::class,'update_sub_cat'])->name('update_sub_cat');
      Route::get('sub-category-delete/{cat_id}',[CategoryController::class,'delet_sub']);
+
      /* sub sub category route */
      
      Route::get('sub-sub-Category',[CategoryController::class,'subsub_index'])->name('sub_sub_Category');
@@ -104,9 +104,7 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::get('wishlist-page-view',[WishlistController::class,'create'])->name('wishlist');
     Route::get('/get/wishlist/product_view/',[WishlistController::class,'read_allproduct_wishlist']);
     Route::get('/get/wishlist/product_remove/{id}',[WishlistController::class,'destroy']);
-    Route::get('mycart',[CartPageController::class,'cart'])->name('mycart');
-    Route::get('/get/mycartlist/product_view/',[CartPageController::class,'get_all_cart']);
-    Route::get('/mycart/product_remove/{rowId}',[CartPageController::class,'remove']);
+
 
  
 }); 
@@ -130,5 +128,11 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::get('/minicart/product/remove/{rowId}',[CartController::class,'minicartremove']);
     /* ===========================wish_list route =========================== */
     Route::post('/wishlist/product_add/{product_id}',[CartController::class,'add_to_wish_list']);
+    /* my cart routes  */
+    Route::get('mycart',[CartController::class,'cart'])->name('mycart');
+    Route::get('/get/mycartlist/product_view/',[CartController::class,'get_all_cart']);
+    Route::get('/mycart/product_remove/{rowId}',[CartController::class,'remove']);
+    Route::get('/mycart/cartincrement/{rowId}',[CartController::class,'increment']);
+    Route::get('/mycart/cartdecrement/{rowId}',[CartController::class,'dicrement']);
     
 

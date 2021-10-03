@@ -88,4 +88,36 @@ class CartController extends Controller
             return response()->json(['error'=>' Please loged in first ']);
         } 
     }
+    /*=================== my cart function bellow ================== */
+    public function cart(){
+        return view  ('user.cart_product_list');
+    }
+
+    public function get_all_cart(){
+        $carts=Cart::content();
+        $cart_qty=Cart::count();
+        $cart_total=Cart::total();
+        return response()->json(array(
+            'carts'=>$carts,
+            'cart_qty'=>$cart_qty,
+            'cart_total'=>round($cart_total),      
+        ));
+    }
+
+    public function remove($rowId){
+        Cart::remove($rowId);
+        return response()->json(['success'=>'successfully remove product from this Mycart']);
+    }
+
+    public function increment($rowId){
+       $row= Cart::get($rowId);
+       Cart::update($rowId, $row->qty+1);
+       return response()->json('increment');
+    }
+
+    public function dicrement($rowId){
+        $row= Cart::get($rowId);
+        Cart::update($rowId, $row->qty-1);
+        return response()->json('increment');
+    }
 }

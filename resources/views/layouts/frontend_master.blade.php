@@ -730,6 +730,7 @@
                 dataType:'json',
                 success:function(data){
                     minicart()
+                    mycart()
                     /* message start */
                     const Toast = Swal.mixin({
                                     toast: true,
@@ -880,7 +881,7 @@
         function mycart(){ 
            $.ajax({
                 type:'GET',
-                url: "{{ url('user/get/mycartlist/product_view/') }}/",
+                url: "{{ url('/get/mycartlist/product_view/') }}/",
                 dataType:'json',
                 success:function(response){                   
                     var rows = ""
@@ -909,9 +910,9 @@
                                 </td>
 
                                 <td class="col-md-2">                            
-                                    <button type="submit" class="btn btn-success btn-sm">+</button>
+                                    <button type="submit" class="btn btn-success btn-sm" id="${value.rowId}" onclick="cartincrement(this.id)">+</button>
                                         <strong>${value.qty}</strong>
-                                    <button type="submit" class="btn btn-danger btn-sm">-</button>                             
+                                    <button type="submit" class="btn btn-danger btn-sm" id="${value.rowId}" onclick="cartdecrement(this.id)">-</button>                             
                                 </td>
 
                                 <td class="col-md-1">
@@ -933,10 +934,10 @@
         function mycart_remove_product(id){
             $.ajax({
                 type:'GET',
-                url: "{{ url('/user/mycart/product_remove/') }}/"+id,
+                url: "{{ url('/mycart/product_remove/') }}/"+id,
                 dataType:'json',
                 success:function(data){
-                    mycart()
+                    mycart();
                     minicart();
                     /* message start */
                     const Toast = Swal.mixin({
@@ -965,6 +966,34 @@
                 }
             })
         }
+
+    /* =========cart increment=============start */
+
+        function cartincrement(rowId){
+            $.ajax({
+                type:'GET',
+                url: "{{ url('/mycart/cartincrement/') }}/"+rowId,
+                dataType:'json',
+                success:function(data){
+                    mycart();
+                    minicart();
+                }
+            });
+        }
+
+        function cartdecrement(rowId){
+            $.ajax({
+                type:'GET',
+                url: "{{ url('/mycart/cartdecrement/') }}/"+rowId,
+                dataType:'json',
+                success:function(data){
+                    mycart();
+                    minicart();
+                }
+            });
+        }
+
+    /* =========cart increment=============end */
     </script>
     {{-- mycart list end  --}}
 </body>

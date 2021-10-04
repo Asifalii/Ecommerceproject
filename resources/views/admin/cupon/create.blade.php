@@ -12,7 +12,7 @@
         <div class="row row-sm">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Brand list</div>
+                    <div class="card-header">Cupon list</div>
                     <div class="card-body">
                         <div class="card pd-20 pd-sm-40">
                             <div class="table-wrapper">
@@ -30,7 +30,7 @@
                                     @foreach ($cupons as $item)  
                                 <tr>
                                     <td>{{ $item->cupon_name }}</td>
-                                    <td>{{ $item->cupon_discount }}%</td>
+                                    <td>{{ $item->cupon_discount }}</td>
                                     <td>
                                         {{ Carbon\Carbon::parse($item->cupon_validity)->format('D, d F y') }}
                                     </td>
@@ -42,8 +42,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ url('admin/edit_brand/'.$item->id) }}" class="btn btn-info btn-sm" title="edit data"><i class="fa fa-pencil"></i></a>
-                                        <a href="{{ url('admin/delet_item/'.$item->id) }}" class="btn btn-danger btn-sm" id="delete" title="delet data"><i class="fa fa-trash"></i></a>
+                                        <a href="{{ url('admin/cupon_edit/'.$item->id) }}" class="btn btn-info btn-sm" title="edit data"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{ url('admin/delet_cupon/'.$item->id) }}" class="btn btn-danger btn-sm" id="delete" title="delet data"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -58,7 +58,7 @@
                 <div class="card">
                     <div class="card-header">Add New coupone</div>
                     <div class="card-body">
-                    <form method="POST" action="{{ route('cupone-store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('cupone-store') }}">
                         @csrf
                         <div class="form-group">
                             <label class="form-control-label">cupone Name <span class="tx-danger">*</span></label>

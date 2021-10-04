@@ -92,7 +92,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
      /*=============================== Cupone routes bellow ================ */
      Route::get('cupone-page',[CuponController::class,'create'])->name('cupone');
      Route::post('cupone-store',[CuponController::class,'store'])->name('cupone-store');
-     
+     Route::get('cupon_edit/{c_id}',[CuponController::class,'edit']);
+     Route::post('cupon-update',[CuponController::class,'update'])->name('cupon_update');
+     Route::get('delet_cupon/{cuppon_id}',[CuponController::class,'destroy'])->name('delet_cupon');
 
 
 

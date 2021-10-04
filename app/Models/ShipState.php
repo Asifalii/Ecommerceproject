@@ -14,4 +14,11 @@ class ShipState extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function division(){
+        return $this->belongsTo('App\Models\ShipDivision','division_id');
+    }
+    public function district(){
+        return $this->belongsTo('App\Models\ShipDistrict','district_id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ShipDistrict;
 use App\Models\ShipDivision;
+use App\Models\ShipState;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -113,5 +114,18 @@ class ShippingAreaController extends Controller{
             'alert-type' => 'success',
         ];
         return Redirect()->route('district')->with($notification);
+    }
+
+    /* ============================state function ================================== */
+    public function state_create(){
+        $states=ShipState::with('division','district')->orderby('id','DESC')->get();
+        $divisions=ShipDivision::orderby('division_name','ASC')->get();
+        return view('admin.state.create',compact('states','divisions'));
+    }
+
+    /* =====================get district by ajax================ */
+    public function get_districtajax($division_id){
+       $shipp= ShipDistrict::where('division_id',$division_id)->orderby('district_name','ASC')->get();
+       return json_encode($shipp);
     }
 }

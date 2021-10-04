@@ -36,8 +36,8 @@
                                             <td>{{ $d->division->division_name }}</td>
                                             <td>{{ $d->district_name }}</td>
                                             <td>
-                                                <a href="{{ url('admin/District-edit/'.$d->id) }}" class="btn btn-info btn-sm" title="edit data"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{ url('admin/District-delete/'.$d->id) }}" class="btn btn-danger btn-sm" id="delete" title="delet data"><i class="fa fa-trash"></i></a>
+                                                <a href="{{ url('admin/district-edit/'.$d->id) }}" class="btn btn-info btn-sm" title="edit data"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{ url('admin/district-delete/'.$d->id) }}" class="btn btn-danger btn-sm" id="delete" title="delet data"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                       

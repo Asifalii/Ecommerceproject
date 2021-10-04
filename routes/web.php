@@ -105,9 +105,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
      /* district rotes bellow  */
      Route::get('district',[ShippingAreaController::class,'district_create'])->name('district');
      Route::post('district-store',[ShippingAreaController::class,'district_store'])->name('district-store');
-     Route::get('district-edit/{division_id}',[ShippingAreaController::class,'district_edit']);
+     Route::get('district-edit/{district_id}',[ShippingAreaController::class,'district_edit']);
      Route::post('district-update',[ShippingAreaController::class,'district_update'])->name('district-update');
-     Route::get('district-delete/{division_id}',[ShippingAreaController::class,'district_destroy']);
+     Route::get('district-delete/{district_id}',[ShippingAreaController::class,'district_destroy']);
 
 });
 

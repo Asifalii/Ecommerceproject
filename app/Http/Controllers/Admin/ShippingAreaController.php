@@ -77,9 +77,41 @@ class ShippingAreaController extends Controller{
             'created_at'=>Carbon::now(),
         ]);
         $notification = [
-            'message' => 'Successfully District added ubder a division',
+            'message' => 'Successfully District added under a division..!',
             'alert-type' => 'success',
         ];
         return Redirect()->back()->with($notification);
+    }
+
+    public function district_edit($district_id){
+        $district=ShipDistrict::findorfail($district_id);
+        $divisions=ShipDivision::orderby('division_name','ASC')->get();
+        return view('admin.district.district_edit',compact('divisions','district'));
+    }
+
+    public function district_update(Request $request){
+        $district_id=$request->id;
+        $request->validate([
+            'division_id'=>'required',
+            'district_name'=>'required',
+        ]);
+        ShipDistrict::findorfail($district_id)->update([
+            'division_id'=>$request->division_id,
+            'district_name'=>$request->district_name,
+        ]);
+        $notification = [
+            'message' => 'Successfully updated district with divison ..!',
+            'alert-type' => 'success',
+        ];
+        return Redirect()->route('district')->with($notification);
+    }
+
+    public function district_destroy($district_id){
+        ShipDistrict::findorfail($district_id)->delete();
+        $notification = [
+            'message' => 'Successfully deleted district with divison ..!',
+            'alert-type' => 'success',
+        ];
+        return Redirect()->route('district')->with($notification);
     }
 }

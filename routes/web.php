@@ -96,19 +96,18 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
      Route::get('cupon_edit/{c_id}',[CuponController::class,'edit']);
      Route::post('cupon-update',[CuponController::class,'update'])->name('cupon_update');
      Route::get('delet_cupon/{cuppon_id}',[CuponController::class,'destroy']);
-     /* shipping routes bellow  */
+     /* shipping district routes bellow  */
      Route::get('division',[ShippingAreaController::class,'create'])->name('division');
      Route::post('division-store',[ShippingAreaController::class,'store'])->name('division-store');
      Route::get('division-edit/{division_id}',[ShippingAreaController::class,'edit']);
      Route::post('division-update',[ShippingAreaController::class,'update'])->name('division-update');
      Route::get('division-delete/{division_id}',[ShippingAreaController::class,'destroy']);
-     
-
-
-
-
-
-
+     /* district rotes bellow  */
+     Route::get('district',[ShippingAreaController::class,'district_create'])->name('district');
+     Route::post('district-store',[ShippingAreaController::class,'district_store'])->name('district-store');
+     Route::get('district-edit/{division_id}',[ShippingAreaController::class,'district_edit']);
+     Route::post('district-update',[ShippingAreaController::class,'district_update'])->name('district-update');
+     Route::get('district-delete/{division_id}',[ShippingAreaController::class,'district_destroy']);
 
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ShipDistrict;
 use App\Models\ShipDivision;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class ShippingAreaController extends Controller{
             'division_name'=>'required',
         ]);
         ShipDivision::insert([
-            'division_name'=>$request->division_name,
+            'division_name'=>ucfirst($request->division_name),
             'created_at'=>Carbon::now(),
         ]);
             $notification = [
@@ -55,5 +56,30 @@ class ShippingAreaController extends Controller{
             'alert-type' => 'success',
         ];
         return Redirect()->route('division')->with($notification);
+    }
+    /* =========================district function =============================== start */
+    public function district_create(){
+        $divisions=ShipDivision::orderby('division_name','ASC')->get();
+        $districts=ShipDistrict::with('division')->orderby('id','DESC')->get();
+        return view('admin.district.district_create',compact('districts','divisions'));
+    }
+
+    public function district_store(Request $request){
+        $request->validate([
+            'division_id'=>'required',
+            'district_name'=>'required',
+        ],[
+            'division_id.required'=>'select division',
+        ]);
+        ShipDistrict::insert([
+            'division_id'=>$request->division_id,
+            'district_name'=>$request->district_name,
+            'created_at'=>Carbon::now(),
+        ]);
+        $notification = [
+            'message' => 'Successfully District added ubder a division',
+            'alert-type' => 'success',
+        ];
+        return Redirect()->back()->with($notification);
     }
 }

@@ -14,4 +14,8 @@ class ShipDistrict extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function division(){
+        return $this->belongsTo('App\Models\ShipDivision','division_id');
+    }
 }

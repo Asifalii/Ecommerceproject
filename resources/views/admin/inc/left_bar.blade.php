@@ -78,7 +78,7 @@
 
         <ul class="sl-menu-sub nav flex-column ">
             <li class="nav-item"><a href="{{ route('division') }}" class="nav-link @yield('division')">Add Division</a></li>
-            <li class="nav-item"><a href="{{ route('sub_Category') }}" class="nav-link @yield('sub_categori_1')">Sub-Categories</a></li>
+            <li class="nav-item"><a href="{{ route('district') }}" class="nav-link @yield('district')">Add District</a></li>
             <li class="nav-item"><a href="{{ route('sub_sub_Category') }}" class="nav-link @yield('sub_sub_categori')">Sub-Sub-Categories</a></li>
         </ul>
 

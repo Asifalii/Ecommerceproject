@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CuponController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ShippingAreaController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\User\UserController;
@@ -94,8 +95,14 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
      Route::post('cupone-store',[CuponController::class,'store'])->name('cupone-store');
      Route::get('cupon_edit/{c_id}',[CuponController::class,'edit']);
      Route::post('cupon-update',[CuponController::class,'update'])->name('cupon_update');
-     Route::get('delet_cupon/{cuppon_id}',[CuponController::class,'destroy'])->name('delet_cupon');
-
+     Route::get('delet_cupon/{cuppon_id}',[CuponController::class,'destroy']);
+     /* shipping routes bellow  */
+     Route::get('division',[ShippingAreaController::class,'create'])->name('division');
+     Route::post('division-store',[ShippingAreaController::class,'store'])->name('division-store');
+     Route::get('division-edit/{division_id}',[ShippingAreaController::class,'edit']);
+     Route::post('division-update',[ShippingAreaController::class,'update'])->name('division-update');
+     Route::get('division-delete/{division_id}',[ShippingAreaController::class,'destroy']);
+     
 
 
 

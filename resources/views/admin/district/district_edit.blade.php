@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-header">update  District </div>
                     <div class="card-body">
-                    <form method="POST" action="{{ route('district-update') }}">
+                    <form method="POST" action="">
                         @csrf
                         <input type="hidden" name="id" value="{{ $district->id }}">
                         <div class="form-group">

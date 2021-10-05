@@ -111,10 +111,10 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
       /* state rotes bellow  */
       Route::get('state',[ShippingAreaController::class,'state_create'])->name('state');
       Route::get('getdistrict/ajax/{division_id}',[ShippingAreaController::class,'get_districtajax']);
-      Route::post('state-store',[ShippingAreaController::class,'state_store'])->name('state-store');
-      Route::get('state-edit/{district_id}',[ShippingAreaController::class,'state_edit']);
-      Route::post('state-update',[ShippingAreaController::class,'state_update'])->name('state-update');
-      Route::get('state-delete/{district_id}',[ShippingAreaController::class,'state_destroy']);
+      Route::post('state-store',[ShippingAreaController::class,'state_store'])->name('state_store');
+      Route::get('state-edit/{state_id}',[ShippingAreaController::class,'state_edit']);
+      Route::post('state-update',[ShippingAreaController::class,'state_update'])->name('state_update');
+      Route::get('state-delete/{state_id}',[ShippingAreaController::class,'state_destroy']);
 
 });
 

@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-header">Add New state </div>
                     <div class="card-body">
-                    <form method="POST" action="{{ route('state-store') }}">
+                    <form method="POST" action="{{ route('state_store') }}">
                         @csrf
                         <div class="form-group">
                             <label class="form-control-label">Select Division<span class="tx-danger">*</span></label>

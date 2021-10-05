@@ -60,15 +60,15 @@ class ShippingAreaController extends Controller{
     }
     /* =========================district function =============================== start */
     public function district_create(){
-        $divisions=ShipDivision::orderby('division_name','ASC')->get();
-        $districts=ShipDistrict::with('division')->orderby('id','DESC')->get();
+        $divisions=ShipDivision::orderBy('division_name','ASC')->get();
+        $districts=ShipDistrict::with('division')->orderBy('id','DESC')->get();
         return view('admin.district.district_create',compact('districts','divisions'));
     }
-
+ 
     public function district_store(Request $request){
         $request->validate([
             'division_id'=>'required',
-            'district_name'=>'required',
+            'district_name'=>'required', 
         ],[
             'division_id.required'=>'select division',
         ]);
@@ -127,5 +127,65 @@ class ShippingAreaController extends Controller{
     public function get_districtajax($division_id){
        $shipp= ShipDistrict::where('division_id',$division_id)->orderby('district_name','ASC')->get();
        return json_encode($shipp);
+    }
+
+    public function state_store(Request $request){
+        $request->validate([
+            'division_id'=>'required',
+            'district_id'=>'required',
+            'state_name'=>'required',
+        ],[
+            'division_id.required'=>'you must have to select',
+            'district_id.required'=>'this one as-well casue it comes below division ',
+        ]);
+        ShipState::insert([
+            'division_id'=>$request->division_id,
+            'district_id'=>$request->district_id,
+            'state_name'=>$request->state_name,
+            'created_at'=>Carbon::now(),
+        ]);
+        $notification = [
+            'message' => 'Successfully state inserted',
+            'alert-type' => 'success',
+        ];
+        return Redirect()->route('state')->with($notification);
+    
+    }
+
+    public function state_edit($state_id){
+        $state=ShipState::findorfail($state_id);
+        $divisions=ShipDivision::orderBy('division_name','ASC')->get();
+        return view('admin.state.state_edit',compact('state','divisions'));
+
+    }
+
+    public function state_update(Request $request){
+        /* j valuta hiiden hoia astycy edit page thaky oita raklam $sate_id te */
+        $state_id=$request->id;
+
+        $request->validate([
+            'state_name'=>'required',
+        ],[
+            'state_name.required'=>'ato jamela toa korcen e ai state ta edit korte , 
+            first a thik vaby dawa jay nai , fazil lok , state de abr thik kore ',
+        ]);
+        ShipState::findorfail($state_id)->update([
+            'state_name'=>$request->state_name,
+            'updated_at'=>Carbon::now(),
+        ]);
+        $notification = [
+            'message' => 'Successfully updated state',
+            'alert-type' => 'success',
+        ];
+        return Redirect()->route('state')->with($notification);
+    }
+
+    public function state_destroy($state_id){
+        ShipState::findorfail($state_id)->delete();
+        $notification = [
+            'message' => 'Successfully deleted state',
+            'alert-type' => 'success',
+        ];
+        return Redirect()->route('state')->with($notification);
     }
 }

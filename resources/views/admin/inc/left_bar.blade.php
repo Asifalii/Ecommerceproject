@@ -79,7 +79,7 @@
         <ul class="sl-menu-sub nav flex-column ">
             <li class="nav-item"><a href="{{ route('division') }}" class="nav-link @yield('division')">Add Division</a></li>
             <li class="nav-item"><a href="{{ route('district') }}" class="nav-link @yield('district')">Add District</a></li>
-            <li class="nav-item"><a href="{{ route('state') }}" class="nav-link @yield('state')">Sub-Sub-Categories</a></li>
+            <li class="nav-item"><a href="{{ route('state') }}" class="nav-link @yield('state')">Add State</a></li>
         </ul>
 
         

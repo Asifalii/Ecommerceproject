@@ -40,12 +40,11 @@
                                                 <a href="{{ url('admin/district-delete/'.$d->id) }}" class="btn btn-danger btn-sm" id="delete" title="delet data"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                      
                                     @endforeach
                                 </tbody>
                             </table>
                             </div><!-- table-wrapper -->
-                        </div><!-- card -->District
+                        </div><!-- card -->
                     </div>
                 </div>
             </div>

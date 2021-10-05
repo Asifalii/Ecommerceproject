@@ -162,5 +162,6 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     Route::get('/mycart/product_remove/{rowId}',[CartController::class,'remove']);
     Route::get('/mycart/cartincrement/{rowId}',[CartController::class,'increment']);
     Route::get('/mycart/cartdecrement/{rowId}',[CartController::class,'dicrement']);
-    
+    /* cupon route */
+    Route::post('/apply_cuppon',[CartController::class,'cupon_apply']);
 

@@ -996,6 +996,46 @@
     /* =========cart increment=============end */
     </script>
     {{-- mycart list end  --}}
+    {{-- cupon apply start  --}}
+    <script>
+        function applycuppon(){
+            var cupon_name=$('#cupon_name').val();
+                    $.ajax({
+                        type:'POST',
+                        dataType:'json',
+                        data: { cupon_name:cupon_name},
+                        url: "{{ url('/apply_cuppon') }}",
+                        success:function(data){
+                            /* message start */
+                            const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timerProgressBar: true,
+                                            timer: 3000,
+                                            })
+
+                                            if($.isEmptyObject(data.error)){
+                                                    Toast.fire({
+                                                        type: 'success',
+                                                        icon: 'success',
+                                                        title: data.success
+                                                            })
+                                            }else{
+                                                $('#cupon_name').val('');
+                                                Toast.fire({
+                                                    type: 'error',
+                                                    icon: 'error',
+                                                    title: data.error
+                                                    
+                                                })
+                                            }
+                                            /* message end */
+                        }
+                    });
+        }
+    </script>
+    {{-- cupon apply end --}}
 </body>
 
 </html>

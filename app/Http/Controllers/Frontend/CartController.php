@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Cupon;
 use App\Models\Product;
 use App\Models\Whishlist;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -119,5 +121,20 @@ class CartController extends Controller
         $row= Cart::get($rowId);
         Cart::update($rowId, $row->qty-1);
         return response()->json('increment');
+    }
+    /* ===========================cupon start ============================== */
+    public function cupon_apply(Request $request){
+        $cupon = Cupon::where('cupon_name',$request->cupon_name)->where('cupon_validity','>=',Carbon::now()->format('y-m-d'))->first();
+            if ($cupon) {
+                Session::put('cupon',[
+                    'cupon_name'=>$cupon->cupon_name,
+                    'cupon_discount'=>$cupon->cupon_discount,
+                    'discount_amount'=>round(Cart::total() * $cupon->cupon_discount/100),
+                    'total_amount'=>round(Cart::total() - Cart::total() * $cupon->cupon_discount/100),
+                ]);
+                return response()->json(['success'=>'cupon submited successfully ']);
+            }else{
+                return response()->json(['error'=>'ni']);
+            }
     }
 }

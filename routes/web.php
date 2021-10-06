@@ -165,4 +165,5 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
     /* cupon route */
     Route::post('/apply_cuppon',[CartController::class,'cupon_apply']);
     Route::get('/cupou-calculation',[CartController::class,'cupon_calculation']);
+    Route::get('/cupon_remove_url',[CartController::class,'cupone_remove']);
 

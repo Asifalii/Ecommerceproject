@@ -112,15 +112,38 @@ class CartController extends Controller
     }
 
     public function increment($rowId){
+      
+        if(Session::has('cupon')){
+           $cupon_name= Session::get('cupon')['cupon_name'];
+           $model=Cupon::where('cupon_name',$cupon_name)->first();
+                Session::put('cupon',[
+                        'cupon_name'=>$model->cupon_name,
+                        'cupon_discount'=>$model->cupon_discount,
+                        'discount_amount'=>round(Cart::total() * $model->cupon_discount/100),                      
+                        'total_amount'=>round(Cart::total() - Cart::total() * $model->cupon_discount/100),
+                    ]);
+                    
+        }
        $row= Cart::get($rowId);
        Cart::update($rowId, $row->qty+1);
        return response()->json('increment');
     }
 
     public function dicrement($rowId){
+        if(Session::has('cupon')){
+            $cupon_name= Session::get('cupon')['cupon_name'];
+            $model=Cupon::where('cupon_name',$cupon_name)->first();
+                 Session::put('cupon',[
+                         'cupon_name'=>$model->cupon_name,
+                         'cupon_discount'=>$model->cupon_discount,
+                         'discount_amount'=>round(Cart::total() * $model->cupon_discount/100),
+                         'total_amount'=>round(Cart::total() - Cart::total() * $model->cupon_discount/100),
+                     ]);
+         }
+
         $row= Cart::get($rowId);
         Cart::update($rowId, $row->qty-1);
-        return response()->json('increment');
+        return response()->json('dicrement');
     }
     /* ===========================cupon start ============================== */
     public function cupon_apply(Request $request){
@@ -149,7 +172,13 @@ class CartController extends Controller
                 ));
 
             }else{
-                
+                return response()->json(array(
+                    'total'=>Cart::total(),                   
+                ));
             }
+    }
+    public function cupone_remove(){
+        session()->forget('cupon');
+        return response()->json(['success'=>'your cupone is removed']);
     }
 }

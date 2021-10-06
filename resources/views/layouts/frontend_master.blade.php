@@ -660,7 +660,7 @@
                                     position: 'top-end',
                                     showConfirmButton: false,
                                     timerProgressBar: true,
-                                    timer: 3000,
+                                    timer: 1000,
                                     })
 
                                     if($.isEmptyObject(data.error)){
@@ -693,6 +693,7 @@
                 url:'/product/view/minicart',
                 dataType:'json',
                 success:function(response){
+                    /* a1 */
                     $('span[id="card_subtotal"]').text(response.cart_total);
                     $('#cart_total').text(response.cart_qty);
                     var minicart = ""
@@ -737,7 +738,7 @@
                                     position: 'top-end',
                                     showConfirmButton: false,
                                     timerProgressBar: true,
-                                    timer: 3000,
+                                    timer: 1000,
                                     })
 
                                     if($.isEmptyObject(data.error)){
@@ -775,7 +776,7 @@
                         position: 'top-end',
                         showConfirmButton: false,
                         timerProgressBar: true,
-                        timer: 3000,
+                        timer: 1000,
                         })
 
                         if($.isEmptyObject(data.error)){
@@ -852,7 +853,7 @@
                                     position: 'top-end',
                                     showConfirmButton: false,
                                     timerProgressBar: true,
-                                    timer: 3000,
+                                    timer: 1000,
                                     })
 
                                     if($.isEmptyObject(data.error)){
@@ -939,13 +940,14 @@
                 success:function(data){
                     mycart();
                     minicart();
+                    
                     /* message start */
                     const Toast = Swal.mixin({
                                     toast: true,
                                     position: 'top-end',
                                     showConfirmButton: false,
                                     timerProgressBar: true,
-                                    timer: 3000,
+                                    timer: 1000,
                                     })
 
                                     if($.isEmptyObject(data.error)){
@@ -975,6 +977,7 @@
                 url: "{{ url('/mycart/cartincrement/') }}/"+rowId,
                 dataType:'json',
                 success:function(data){
+                    cupon_calculation();
                     mycart();
                     minicart();
                 }
@@ -987,6 +990,7 @@
                 url: "{{ url('/mycart/cartdecrement/') }}/"+rowId,
                 dataType:'json',
                 success:function(data){
+                    cupon_calculation();
                     mycart();
                     minicart();
                 }
@@ -1006,13 +1010,15 @@
                         data: { cupon_name:cupon_name},
                         url: "{{ url('/apply_cuppon') }}",
                         success:function(data){
+                            cupon_calculation();
+                            $('#cuponfield').hide();
                             /* message start */
                             const Toast = Swal.mixin({
                                             toast: true,
                                             position: 'top-end',
                                             showConfirmButton: false,
                                             timerProgressBar: true,
-                                            timer: 3000,
+                                            timer: 1000,
                                             })
 
                                             if($.isEmptyObject(data.error)){
@@ -1039,14 +1045,87 @@
         function cupon_calculation(){
             $.ajax({
                 type:'GET',
-                url: "{{ url('/cupou-calculation') }}/",
+                url: "{{ url('/cupou-calculation') }}",
                 dataType:'json',
                 success:function(data){
-                  
+                  if(data.total){
+                        $('#cuponcalfield').html(`
+                        <tr>
+                            <th>
+                                <div class="cart-sub-total">
+                                    Subtotal<span class="inner-left-md">$ ${data.total}</span>
+                                </div>
+                                
+                                <div class="cart-grand-total">
+                                    Grand Total<span class="inner-left-md">$ ${data.total}</span>
+                                </div>
+                            </th>
+                        </tr>
+                        `)
+                  }else{
+                        $('#cuponcalfield').html(` <tr>
+                            <th>
+                                <div class="cart-sub-total">
+                                    Subtotal<span class="inner-left-md">$${data.subtotal}</span>
+                                </div>
+
+                                <div class="cart-sub-total">
+                                    Cupon Name<span class="inner-left-md">$${data.cupon_name}</span>
+                                    <button type="submit" onclick="cuponremove()"><i class="fa fa-times"></i></button>
+                                </div>
+
+                                <div class="cart-sub-total">
+                                    Cupon discount<span class="inner-left-md">$${data.discount_amount}</span>
+                                </div>
+                                <div class="cart-grand-total">
+                                    Grand Total<span class="inner-left-md">$${data.total_amount}</span>
+                                </div>
+                            </th>
+                        </tr>`)
+                  }
                 }
             });
         }
+        cupon_calculation();
         /* cupon caluclation end */
+        /* cupon remove start */
+            function cuponremove(){
+                $.ajax({
+                type:'GET',
+                url: "{{ url('/cupon_remove_url') }}",
+                dataType:'json',
+                success:function(data){
+                    cupon_calculation();
+                    $('#cuponfield').show();
+                    $('#cupon_name').val('');
+                    /* message start */
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 1000,
+                        })
+
+                        if($.isEmptyObject(data.error)){
+                                Toast.fire({
+                                    type: 'success',
+                                    icon: 'success',
+                                    title: data.success
+                                        })
+                        }else{
+                            Toast.fire({
+                                type: 'error',
+                                icon: 'error',
+                                title: data.error
+                                
+                            })
+                        }
+                        /* message end */
+                }
+            });
+            }
+        /* cupon remove end */
     </script>
     {{-- cupon apply end --}}
 </body>

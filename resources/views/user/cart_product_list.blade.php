@@ -40,7 +40,7 @@
                 @if(session()->has('cupon'))
 
                 @else
-                <table class="table">
+                <table class="table" id="cuponfield">
                     <thead>
                         <tr>
                             <th>
@@ -68,7 +68,7 @@
             
             <div class="col-md-6 col-sm-12 cart-shopping-total">
                 <table class="table">
-                    <thead>
+                    <thead id="cuponcalfield">
                         <tr>
                             <th>
                                 <div class="cart-sub-total">

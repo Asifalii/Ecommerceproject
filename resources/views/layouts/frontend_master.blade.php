@@ -1034,6 +1034,19 @@
                         }
                     });
         }
+
+        /* cupon caluclation start */
+        function cupon_calculation(){
+            $.ajax({
+                type:'GET',
+                url: "{{ url('/cupou-calculation') }}/",
+                dataType:'json',
+                success:function(data){
+                  
+                }
+            });
+        }
+        /* cupon caluclation end */
     </script>
     {{-- cupon apply end --}}
 </body>

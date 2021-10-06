@@ -124,7 +124,7 @@ class CartController extends Controller
     }
     /* ===========================cupon start ============================== */
     public function cupon_apply(Request $request){
-        $cupon = Cupon::where('cupon_name',$request->cupon_name)->where('cupon_validity','>=',Carbon::now()->format('y-m-d'))->first();
+        $cupon=Cupon::where('cupon_name',$request->cupon_name)->where('cupon_validity','>=',Carbon::now()->format('Y-m-d'))->first();
             if ($cupon) {
                 Session::put('cupon',[
                     'cupon_name'=>$cupon->cupon_name,
@@ -132,9 +132,24 @@ class CartController extends Controller
                     'discount_amount'=>round(Cart::total() * $cupon->cupon_discount/100),
                     'total_amount'=>round(Cart::total() - Cart::total() * $cupon->cupon_discount/100),
                 ]);
-                return response()->json(['success'=>'cupon submited successfully ']);
+                return response()->json(['success'=>'cupon Apllyed successfully ']);
             }else{
-                return response()->json(['error'=>'ni']);
+                return response()->json(['error'=>'your cupone is not valid']);
+            }
+    }
+
+    public function cupon_calculation(){
+
+            if(session()->has('cupon')){
+                return response()->json(array(
+                    'subtotal'=>Cart::total(),
+                    'cupon_name'=>session()->get('cupon')['cupon_name'],
+                    'discount_amount'=>session()->get('cupon')['discount_amount'],     
+                    'total_amount'=>session()->get('cupon')['total_amount'],      
+                ));
+
+            }else{
+                
             }
     }
 }

@@ -37,6 +37,9 @@
                 </div>
             </div>	
             <div class="col-md-6 col-sm-12 estimate-ship-tax">
+                @if(session()->has('cupon'))
+
+                @else
                 <table class="table">
                     <thead>
                         <tr>
@@ -59,6 +62,8 @@
                             </tr>
                     </tbody><!-- /tbody -->
                 </table><!-- /table -->
+                @endif
+               
             </div><!-- /.estimate-ship-tax -->
             
             <div class="col-md-6 col-sm-12 cart-shopping-total">
@@ -68,6 +73,14 @@
                             <th>
                                 <div class="cart-sub-total">
                                     Subtotal<span class="inner-left-md">$600.00</span>
+                                </div>
+
+                                <div class="cart-sub-total">
+                                    Cupon Name<span class="inner-left-md">$600.00</span>
+                                </div>
+
+                                <div class="cart-sub-total">
+                                    Cupon discount<span class="inner-left-md">$600.00</span>
                                 </div>
                                 <div class="cart-grand-total">
                                     Grand Total<span class="inner-left-md">$600.00</span>
